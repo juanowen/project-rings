@@ -18,7 +18,7 @@ export class RenderModel extends BaseModel<RenderModel.Data> {
     }
 
     public set angle(value: number) {
-        this._angle = value;
+        this._angle = (value + 360) % 360;
     }
 
     public setData(data: RenderModel.Data): void {

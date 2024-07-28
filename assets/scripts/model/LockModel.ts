@@ -1,4 +1,3 @@
-import { LockView } from "../view/LockView";
 import { RenderModel } from "./RenderModel";
 
 export namespace LockModel {
@@ -11,6 +10,10 @@ export namespace LockModel {
 export class LockModel extends RenderModel {
     protected _radius: number;
     protected _isLocked: boolean;
+
+    public set isLocked(value: boolean) {
+        this._isLocked = value;
+    }
 
     public setData(data: LockModel.Data): void {
         super.setData(data);

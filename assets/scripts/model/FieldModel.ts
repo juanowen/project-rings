@@ -9,7 +9,7 @@ export namespace FieldModel {
 }
 
 export class FieldModel extends BaseModel<FieldModel.Data> {
-    protected _pieces: Map<IView, RenderModel>;
+    protected _pieces: Map<IView, RenderModel> = new Map();
 
     public setData(data: FieldModel.Data): void {
         this._pieces = data.pieces;
@@ -23,5 +23,9 @@ export class FieldModel extends BaseModel<FieldModel.Data> {
 
     public getPieceModel(view: IView): RenderModel {
         return this._pieces.get(view);
+    }
+
+    public addPiece(view: IView, model: RenderModel): void {
+        this._pieces.set(view, model);
     }
 }

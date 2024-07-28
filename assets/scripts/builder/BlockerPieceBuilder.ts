@@ -14,7 +14,10 @@ export class BlockerPieceBuilder extends PieceBuilder<BlockerPieceBuilder.Payloa
     protected async _getPieceData(node: cc.Node, payload?: BlockerPieceBuilder.Payload): Promise<PieceFactory.PieceData> {
         const view = node.getComponent(LockView);
         const model = new LockModel(payload.configEntry);
+            
+        this._fieldModel.addPiece(view, model);
 
         return {node, view, model};
     }
+
 }

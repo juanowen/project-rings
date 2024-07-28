@@ -12,10 +12,18 @@ export class LockView extends cc.Component implements IView<LockModel.Data> {
     protected _renderSprite: cc.Sprite = null;
 
     @property({
-        type: cc.Collider,
+        type: cc.CircleCollider,
         visible: true,
     })
-    protected _collider: cc.Collider = null;
+    protected _collider: cc.CircleCollider = null;
+
+    public get colliderWorldPos(): cc.Vec2 {
+        if (this._collider) {
+            return this._collider.node.convertToWorldSpaceAR(this._collider?.offset);
+        }
+
+        return this.node.convertToWorldSpaceAR(cc.Vec2.ZERO);
+    }
     
     @property({
         visible() {

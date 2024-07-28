@@ -17,7 +17,7 @@
         "__id__": 2
       },
       {
-        "__id__": 5
+        "__id__": 6
       }
     ],
     "_active": false,
@@ -75,6 +75,9 @@
     "_components": [
       {
         "__id__": 3
+      },
+      {
+        "__id__": 4
       }
     ],
     "_prefab": null,
@@ -126,6 +129,33 @@
     "_id": "5fKSH5aTFKNYd9jaNLnivl"
   },
   {
+    "__type__": "292b3If2uBATpiL2VKDJJLY",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "_enablePhysics2D": false,
+    "_enableAccumulator": false,
+    "_gravity2D": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": -980
+    },
+    "_debugPhysics2D": false,
+    "_enablePhysics3D": false,
+    "_gravity3D": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": -10,
+      "z": 0
+    },
+    "_enableCollision": true,
+    "_debugCollision": true,
+    "_id": "ebys7+QbFH/pYH+I0jSyTP"
+  },
+  {
     "__type__": "8ab9c0oht9FH652tILOGJcl",
     "_name": "",
     "_objFlags": 0,
@@ -137,19 +167,8 @@
       "__uuid__": "57535cb5-9a37-44d1-97a7-d13b0fb11ed0"
     },
     "_fieldHolder": {
-      "__id__": 4
+      "__id__": 5
     },
-    "_typePrefabMapping": [
-      {
-        "__id__": 11
-      },
-      {
-        "__id__": 12
-      },
-      {
-        "__id__": 13
-      }
-    ],
     "_id": "caG7/5UC5Fh4Wk7/DdNkBk"
   },
   {
@@ -157,7 +176,7 @@
     "_name": "FieldHolder",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 5
+      "__id__": 6
     },
     "_children": [],
     "_active": true,
@@ -219,19 +238,19 @@
     },
     "_children": [
       {
-        "__id__": 6
+        "__id__": 7
       },
       {
-        "__id__": 8
+        "__id__": 9
       },
       {
-        "__id__": 4
+        "__id__": 5
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 10
+        "__id__": 11
       }
     ],
     "_prefab": null,
@@ -287,13 +306,13 @@
     "_name": "Main Camera",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 5
+      "__id__": 6
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 7
+        "__id__": 8
       }
     ],
     "_prefab": null,
@@ -349,10 +368,10 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 6
+      "__id__": 7
     },
     "_enabled": true,
-    "_cullingMask": -6,
+    "_cullingMask": -5,
     "_clearFlags": 7,
     "_backgroundColor": {
       "__type__": "cc.Color",
@@ -385,13 +404,13 @@
     "_name": "Lock Camera",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 5
+      "__id__": 6
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 9
+        "__id__": 10
       }
     ],
     "_prefab": null,
@@ -447,10 +466,10 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 8
+      "__id__": 9
     },
     "_enabled": true,
-    "_cullingMask": -4,
+    "_cullingMask": -3,
     "_clearFlags": 6,
     "_backgroundColor": {
       "__type__": "cc.Color",
@@ -483,7 +502,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 5
+      "__id__": 6
     },
     "_enabled": true,
     "_designResolution": {

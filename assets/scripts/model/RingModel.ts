@@ -2,29 +2,25 @@ import { LockablePieceModel } from "./LockablePieceModel";
 
 export namespace RingModel {
     export type Data = LockablePieceModel.Data & {
-        gapAngle: number,
-        gapRadius: number,
+        gapRange: GapRange,
+    }
+
+    export type GapRange = {
+        minAngle: number,
+        maxAngle: number,
     }
 }
 
 export class RingModel extends LockablePieceModel {
-    protected _gapAngle: number;
-    protected _gapRadius: number;
+    protected _gapRange: RingModel.GapRange;
 
     public setData(data: RingModel.Data): void {
         super.setData(data);
 
-        this._gapAngle = data.gapAngle;
-        this._gapRadius = data.gapRadius;
+        this._gapRange = data.gapRange;
     }
 
     public getData(): RingModel.Data {
-        return Object.assign({},
-            super.getData(),
-            {
-                gapAngle: this._gapAngle,
-                gapRadius: this._gapRadius,
-            }
-        )
+        return Object.assign({gapRange: this._gapRange}, super.getData());
     }
 }

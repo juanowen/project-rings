@@ -17,10 +17,10 @@ export class RingView extends LockablePieceView {
     })
     protected _collider: cc.Collider = null;
 
-    protected _handler: IController<RingView, cc.Event.EventTouch> = null;
+    protected _touchHandler: IController<RingView, cc.Event.EventTouch> = null;
 
-    public set handler(value: IController<RingView, cc.Event.EventTouch>) {
-        this._handler = value;
+    public set touchHandler(value: IController<RingView, cc.Event.EventTouch>) {
+        this._touchHandler = value;
     }
 
     protected onEnable(): void {
@@ -38,6 +38,6 @@ export class RingView extends LockablePieceView {
     }
 
     protected _onTouchMove(event: cc.Event.EventTouch): void {
-        this._handler?.handle(this, event);
+        this._touchHandler?.handle(this, event);
     }
 }
