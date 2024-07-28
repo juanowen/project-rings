@@ -9,14 +9,16 @@ export namespace RingModel {
 }
 
 export class RingModel extends LockablePiece {
-    private _gapAngle: number;
-    private _gapRadius: number;
-    private _startAngle: number;
+    protected _gapAngle: number;
+    protected _gapRadius: number;
+    protected _startAngle: number;
 
     public setData(data: RingModel.Data): void {
         this._gapAngle = data.gapAngle;
         this._gapRadius = data.gapRadius;
         this._startAngle = data.startAngle;
+        this._angle = data.startAngle;
+        this._view = data.view;
 
         super.setData(data);
     }
@@ -27,7 +29,7 @@ export class RingModel extends LockablePiece {
             {
                 gapAngle: this._gapAngle,
                 gapRadius: this._gapRadius,
-                startAngle: this._startAngle
+                startAngle: this._startAngle,
             }
         )
     }

@@ -17,18 +17,9 @@ export class RingView extends LockablePieceView {
     })
     protected _collider: cc.Collider = null;
 
-    @property
-    public get angle(): number {
-        return this.node.angle;
-    }
+    protected _handler: IController<RingView, cc.Event.EventTouch> = null;
 
-    public set angle(value: number) {
-        this.node.angle = value;
-    }
-
-    protected _handler: IController<cc.Event.EventTouch> = null;
-
-    public set handler(value: IController<cc.Event.EventTouch>) {
+    public set handler(value: IController<RingView, cc.Event.EventTouch>) {
         this._handler = value;
     }
 
@@ -47,6 +38,6 @@ export class RingView extends LockablePieceView {
     }
 
     protected _onTouchMove(event: cc.Event.EventTouch): void {
-        this._handler?.handle(event);
+        this._handler?.handle(this, event);
     }
 }

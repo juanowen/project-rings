@@ -1,3 +1,4 @@
+import { LockablePieceView } from "../view/LockablePieceView";
 import { BaseModel } from "./BaseModel";
 import { LockModel } from "./LockModel"
 
@@ -5,25 +6,31 @@ export namespace LockablePiece {
     export type Data = {
         x: number,
         y: number,
-        radius: number,
-        locks: Lock[],
-        node: cc.Node,
-    }
-
-    export type Lock = {
+        locks: LockModel[],
         angle: number,
-        lock: LockModel,
+        view?: LockablePieceView
     }
 }
 
 export class LockablePiece extends BaseModel<LockablePiece.Data> {
-    private _x: number;
-    private _y: number;
-    private _radius: number;
-    private _locks: LockablePiece.Lock[];
-    private _node: cc.Node;
+    protected _x: number;
+    protected _y: number;
+    protected _locks: LockModel[];
+    protected _angle: number;
+    protected _view: LockablePieceView;
 
-    public setData({ locks }: LockablePiece.Data): void {
+    public get angle(): number {
+        return this._angle;
+    }
+
+    public set angle(value: number) {
+        this._angle = value;
+        this._view.render(this.getData());
+    }
+
+    public setData({ x, y, locks }: LockablePiece.Data): void {
+        this._x = x;
+        this._y = y;
         this._locks = locks;
     }
 
@@ -31,9 +38,8 @@ export class LockablePiece extends BaseModel<LockablePiece.Data> {
         return {
             x: this._x,
             y: this._y,
-            radius: this._radius,
             locks: this._locks,
-            node: this._node
+            angle: this._angle
         }
     }
 }

@@ -1,3 +1,3 @@
-export interface IController<Data> {
-    handle(data: Data): void;
+export interface IController<View, Data> {
+    handle(view: View, data: Data): void;
 }

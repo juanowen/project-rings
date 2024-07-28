@@ -1,14 +1,15 @@
+import { LockablePieceView } from "../view/LockablePieceView";
 import { BaseModel } from "./BaseModel";
 import { LockablePiece } from "./LockablePiece";
 
 export namespace FieldModel {
     export type Data = {
-        pieces: LockablePiece[],
+        pieces: Map<LockablePieceView, LockablePiece>,
     }
 }
 
 export class FieldModel extends BaseModel<FieldModel.Data> {
-    private _pieces: LockablePiece[];
+    protected _pieces: Map<LockablePieceView, LockablePiece>;
 
     setData(data: FieldModel.Data): void {
         this._pieces = data.pieces;
@@ -18,5 +19,9 @@ export class FieldModel extends BaseModel<FieldModel.Data> {
         return {
             pieces: this._pieces
         }
+    }
+
+    public getPieceModel(view: LockablePieceView): LockablePiece {
+        return this._pieces.get(view);
     }
 }
