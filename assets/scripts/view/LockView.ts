@@ -1,7 +1,10 @@
+import { LockModel } from "../model/LockModel";
+import { IView } from "./IView";
+
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export class LockView extends cc.Component {
+export class LockView extends cc.Component implements IView<LockModel.Data> {
     @property({
         type: cc.Sprite,
         visible: true,
@@ -44,6 +47,11 @@ export class LockView extends cc.Component {
         if (this._collider) {
             this._collider.node.angle = value;
         }
+    }
+
+    public render(data: LockModel.Data): void {
+        this.angle = data.angle;
+        this.radius = data.radius;
     }
     
     protected onLoad(): void {

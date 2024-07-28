@@ -1,27 +1,27 @@
-import { LockablePieceView } from "../view/LockablePieceView";
+import { IView } from "../view/IView";
 import { BaseModel } from "./BaseModel";
-import { LockablePiece } from "./LockablePiece";
+import { RenderModel } from "./RenderModel";
 
 export namespace FieldModel {
     export type Data = {
-        pieces: Map<LockablePieceView, LockablePiece>,
+        pieces: Map<IView, RenderModel>,
     }
 }
 
 export class FieldModel extends BaseModel<FieldModel.Data> {
-    protected _pieces: Map<LockablePieceView, LockablePiece>;
+    protected _pieces: Map<IView, RenderModel>;
 
-    setData(data: FieldModel.Data): void {
+    public setData(data: FieldModel.Data): void {
         this._pieces = data.pieces;
     }
 
-    getData(): FieldModel.Data {
+    public getData(): FieldModel.Data {
         return {
             pieces: this._pieces
         }
     }
 
-    public getPieceModel(view: LockablePieceView): LockablePiece {
+    public getPieceModel(view: IView): RenderModel {
         return this._pieces.get(view);
     }
 }

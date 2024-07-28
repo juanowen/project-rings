@@ -1,4 +1,5 @@
 import { FieldModel } from "../model/FieldModel";
+import { RingModel } from "../model/RingModel";
 import { RingView } from "../view/RingView";
 import { IController } from "./IController";
 
@@ -16,9 +17,9 @@ export class RingController implements IController<RingView, cc.Event.EventTouch
     }
 
     handle(view: RingView, data: cc.Event.EventTouch): void {
-        const ringModel = this._field.getPieceModel(view);
+        const model = this._field.getPieceModel(view);
 
-        if (ringModel) {
+        if (model instanceof RingModel) {
             const ringPos = data.currentTarget.convertToWorldSpaceAR(cc.Vec2.ZERO);
             const prevTouchPos = data.touch.getPreviousLocation();
             const currentTouchPos = data.touch.getLocation();
@@ -28,7 +29,9 @@ export class RingController implements IController<RingView, cc.Event.EventTouch
             const deltaRad = prevRad - currentRad;
 
             const deltaAngle = deltaRad * 180 / Math.PI;
-            ringModel.angle += deltaAngle;
+            model.angle -= deltaAngle;
+
+            view.render(model.getData());
         }
     }
 }

@@ -1,32 +1,28 @@
 import { LockView } from "../view/LockView";
-import { BaseModel } from "./BaseModel";
+import { RenderModel } from "./RenderModel";
 
-namespace LockModel {
-    export type Data = {
+export namespace LockModel {
+    export type Data = RenderModel.Data & {
         radius: number,
-        angle: number,
         isLocked: boolean,
-        view: LockView,
     }
 }
 
-export class LockModel extends BaseModel<LockModel.Data> {
+export class LockModel extends RenderModel {
     protected _radius: number;
-    protected _angle: number;
     protected _isLocked: boolean;
-    protected _view: LockView;
 
-    public setData({ isLocked, view }: LockModel.Data): void {
-        this._isLocked = isLocked ?? false;
-        this._view = view;
+    public setData(data: LockModel.Data): void {
+        super.setData(data);
+
+        this._radius = data.radius;
+        this._isLocked = data.isLocked ?? false;
     }
 
     public getData(): LockModel.Data {
-        return {
+        return Object.assign(super.getData(), {
             radius: this._radius,
-            angle: this._angle,
-            isLocked: this._isLocked,
-            view: this._view
-        }
+            isLocked: this._isLocked
+        });
     }
 }

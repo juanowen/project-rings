@@ -1,26 +1,19 @@
-import { LockablePiece } from "../model/LockablePiece";
+import { LockablePieceModel } from "../model/LockablePieceModel";
+import { BaseView } from "./BaseView";
+import { IView } from "./IView";
 import { LockView } from "./LockView";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export class LockablePieceView extends cc.Component {
+export class LockablePieceView extends BaseView implements IView<LockablePieceModel.Data> {
     @property({
         type: [LockView],
         visible: true,
     })
     protected _locks: LockView[] = [];
 
-    @property
-    public get angle(): number {
-        return this.node.angle;
-    }
-
-    public set angle(value: number) {
-        this.node.angle = value;
-    }
-
-    render(data: LockablePiece.Data): void {
-        this.angle = data.angle;
+    public addLockView(view: LockView): void {
+        this._locks.push(view);
     }
 }

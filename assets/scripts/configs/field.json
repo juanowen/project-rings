@@ -1,81 +1,85 @@
-{
-    "cellSize": {
-        "width": 462,
-        "height": 400
+[
+    {
+        "type": "ring",
+        "x": -462,
+        "y": 0,
+        "locks": [
+            {
+                "radius": 231,
+                "angle": 0,
+                "isLocked": true
+            }
+        ],
+        "angle": 0
     },
-    "pieces": [
-        {
-            "type": "ring",
-            "x": 0,
-            "y": 0,
-            "locks": [{
+    {
+        "type": "ring",
+        "x": 0,
+        "y": 0,
+        "locks": [
+            {
                 "radius": 231,
                 "angle": 0,
                 "isLocked": true
-            }],
-            "angle": 0
-        },
-        {
-            "type": "ring",
-            "x": 462,
-            "y": 0,
-            "locks": [{
-                "radius": 231,
-                "angle": 0,
-                "isLocked": true
-            }],
-            "angle": 0
-        },
-        {
-            "type": "ring",
-            "x": 924,
-            "y": 0,
-            "locks": [{
+            }
+        ],
+        "angle": 0
+    },
+    {
+        "type": "ring",
+        "x": 462,
+        "y": 0,
+        "locks": [
+            {
                 "radius": 231,
                 "angle": 0,
                 "isLocked": false
-            }],
-            "angle": 0
-        },
-        {
-            "type": "ring",
-            "x": 231,
-            "y": -400,
-            "locks": [{
+            }
+        ],
+        "angle": 0
+    },
+    {
+        "type": "ring",
+        "x": -231,
+        "y": -400,
+        "locks": [
+            {
                 "radius": 231,
                 "angle": 0,
                 "isLocked": true
-            }],
-            "angle": 60
-        },
-        {
-            "type": "ring",
-            "x": 693,
-            "y": -400,
-            "locks": [{
+            }
+        ],
+        "angle": 60
+    },
+    {
+        "type": "ring",
+        "x": 231,
+        "y": -400,
+        "locks": [
+            {
                 "radius": 231,
                 "angle": 0,
                 "isLocked": true
-            }],
-            "angle": 60
-        },
-        {
-            "type": "lock",
-            "x": 693,
-            "y": -400,
-            "locks": [
-                {
-                    "radius": 0,
-                    "angle": 0,
-                    "isLocked": true
-                },
-                {
-                    "radius": 0,
-                    "angle": 0,
-                    "isLocked": true
-                }
-            ],
-            "angle": 0
-        }
-    ]
-}
+            }
+        ],
+        "angle": 60
+    },
+    {
+        "type": "lock",
+        "x": 0,
+        "y": -400,
+        "locks": [
+            {
+                "radius": 0,
+                "angle": 0,
+                "isLocked": true
+            },
+            {
+                "radius": 0,
+                "angle": 180,
+                "isLocked": true
+            }
+        ],
+        "angle": 0
+    }
+]
