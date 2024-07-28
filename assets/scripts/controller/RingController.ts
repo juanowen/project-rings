@@ -1,7 +1,7 @@
 import { FieldModel } from "../model/FieldModel";
 import { RingModel } from "../model/RingModel";
 import { RingView } from "../view/RingView";
-import { IController } from "./IController";
+import { IController } from "../interface/IController";
 
 export namespace RingController {
     export type Options = {
@@ -16,22 +16,28 @@ export class RingController implements IController<RingView, cc.Event.EventTouch
         this._field = field;
     }
 
-    handle(view: RingView, data: cc.Event.EventTouch): void {
+    public handle(view: RingView, data: cc.Event.EventTouch): void {
         const model = this._field.getPieceModel(view);
 
         if (model instanceof RingModel) {
-            const ringPos = data.currentTarget.convertToWorldSpaceAR(cc.Vec2.ZERO);
-            const prevTouchPos = data.touch.getPreviousLocation();
-            const currentTouchPos = data.touch.getLocation();
+            if (!this._ringIsLocked(model.getData())) {
+                const ringPos = data.currentTarget.convertToWorldSpaceAR(cc.Vec2.ZERO);
+                const prevTouchPos = data.touch.getPreviousLocation();
+                const currentTouchPos = data.touch.getLocation();
 
-            const prevRad = Math.atan2(ringPos.y - prevTouchPos.y, ringPos.x - prevTouchPos.x);
-            const currentRad = Math.atan2(ringPos.y - currentTouchPos.y, ringPos.x - currentTouchPos.x);
-            const deltaRad = prevRad - currentRad;
+                const prevRad = Math.atan2(ringPos.y - prevTouchPos.y, ringPos.x - prevTouchPos.x);
+                const currentRad = Math.atan2(ringPos.y - currentTouchPos.y, ringPos.x - currentTouchPos.x);
+                const deltaRad = prevRad - currentRad;
 
-            const deltaAngle = deltaRad * 180 / Math.PI;
-            model.angle -= deltaAngle;
+                const deltaAngle = deltaRad * 180 / Math.PI;
+                model.angle -= deltaAngle;
 
-            view.render(model.getData());
+                view.render(model.getData());
+            }
         }
+    }
+
+    protected _ringIsLocked(data: RingModel.Data): boolean {
+        return data.locks.some(lock => lock.getData().isLocked);
     }
 }

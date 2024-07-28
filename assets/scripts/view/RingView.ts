@@ -1,4 +1,4 @@
-import { IController } from "../controller/IController";
+import { IController } from "../interface/IController";
 import { LockablePieceView } from "./LockablePieceView";
 
 const { ccclass, property } = cc._decorator;

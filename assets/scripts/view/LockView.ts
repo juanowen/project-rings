@@ -1,5 +1,5 @@
 import { LockModel } from "../model/LockModel";
-import { IView } from "./IView";
+import { IView } from "../interface/IView";
 
 const { ccclass, property } = cc._decorator;
 

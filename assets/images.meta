@@ -2,12 +2,20 @@
   "ver": "1.1.3",
   "uuid": "443ca251-9674-4537-a7c9-1ecc7cf92ea6",
   "importer": "folder",
-  "isBundle": false,
+  "isBundle": true,
   "bundleName": "",
   "priority": 1,
-  "compressionType": {},
-  "optimizeHotUpdate": {},
-  "inlineSpriteFrames": {},
-  "isRemoteBundle": {},
+  "compressionType": {
+    "web-mobile": "default"
+  },
+  "optimizeHotUpdate": {
+    "web-mobile": false
+  },
+  "inlineSpriteFrames": {
+    "web-mobile": true
+  },
+  "isRemoteBundle": {
+    "web-mobile": false
+  },
   "subMetas": {}
 }

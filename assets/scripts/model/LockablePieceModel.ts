@@ -3,12 +3,12 @@ import { RenderModel } from "./RenderModel";
 
 export namespace LockablePieceModel {
     export type Data = RenderModel.Data & {
-        locks: LockModel.Data[],
+        locks: LockModel[],
     }
 }
 
 export class LockablePieceModel extends RenderModel {
-    protected _locks: LockModel.Data[];
+    protected _locks: LockModel[];
 
     public setData(data: LockablePieceModel.Data): void {
         super.setData(data);

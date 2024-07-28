@@ -1,4 +1,4 @@
-import { IView } from "../view/IView";
+import { IView } from "../interface/IView";
 import { BaseModel } from "./BaseModel";
 import { RenderModel } from "./RenderModel";
 

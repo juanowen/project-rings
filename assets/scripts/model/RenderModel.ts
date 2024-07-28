@@ -2,9 +2,9 @@ import { BaseModel } from "./BaseModel";
 
 export namespace RenderModel {
     export type Data = {
-        x: number,
-        y: number,
-        angle: number,
+        x?: number,
+        y?: number,
+        angle?: number,
     }
 }
 

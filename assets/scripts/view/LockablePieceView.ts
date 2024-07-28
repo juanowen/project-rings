@@ -1,6 +1,6 @@
 import { LockablePieceModel } from "../model/LockablePieceModel";
 import { BaseView } from "./BaseView";
-import { IView } from "./IView";
+import { IView } from "../interface/IView";
 import { LockView } from "./LockView";
 
 const { ccclass, property } = cc._decorator;

@@ -1,5 +1,5 @@
 import { RenderModel } from "../model/RenderModel";
-import { IView } from "./IView";
+import { IView } from "../interface/IView";
 
 const {ccclass, property} = cc._decorator;
 
@@ -13,7 +13,7 @@ export class BaseView extends cc.Component implements IView<RenderModel.Data> {
     public set angle(value: number) {
         this.node.angle = value;
     }
-    
+
     public render(data?: RenderModel.Data): void {
         this.node.setPosition(data.x, data.y);
         this.node.angle = data.angle;
