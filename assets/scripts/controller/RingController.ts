@@ -4,18 +4,23 @@ import { RingView } from "../view/RingView";
 import { IController } from "../interface/IController";
 import { AngleUtil } from "../utils/AngleUtil";
 import { LockView } from "../view/LockView";
+import { TutorialController } from "./TutorialController";
 
 export namespace RingController {
     export type Options = {
         fieldModel: FieldModel,
+        tutorialController: TutorialController,
     }
 }
 
 export class RingController implements IController<RingView, cc.Event.EventTouch> {
     private _fieldModel: FieldModel;
+    private _tutorialController: TutorialController;
 
-    constructor({ fieldModel }: RingController.Options) {
+
+    constructor({ fieldModel, tutorialController }: RingController.Options) {
         this._fieldModel = fieldModel;
+        this._tutorialController = tutorialController;
     }
 
     public handle(view: RingView, data: cc.Event.EventTouch): void {
@@ -25,6 +30,8 @@ export class RingController implements IController<RingView, cc.Event.EventTouch
             this._handleRotation(view, data, ringModel);
 
             ringModel.updateLockedState();
+
+            this._tutorialController?.handle();
         }
     }
 

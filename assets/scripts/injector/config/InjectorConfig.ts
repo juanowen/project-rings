@@ -38,5 +38,7 @@ export default {
                 }
             }),
         }
-    })
+    }),
+
+    'FieldModel': ModelInjectorConfig.FieldModel
 };
