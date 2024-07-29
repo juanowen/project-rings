@@ -16,12 +16,11 @@ export class BlockerPieceBuilder extends PieceBuilder<BlockerPieceBuilder.Payloa
     protected async _getPieceData(node: cc.Node, payload?: BlockerPieceBuilder.Payload): Promise<PieceFactory.PieceData> {
         const view = this._getView(node);
         const model = this._getModel(payload);
-            
-        this._bindHandlers(view);
 
         this._fieldModel.addPiece(view, model);
 
-        this._updateSpriteFrame(view, payload.configEntry.color);
+        await this._updateSpriteFrame(view, payload.configEntry.color);
+        this._bindHandlers(view);
 
         return {node, view, model};
     }

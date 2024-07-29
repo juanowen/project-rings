@@ -19,6 +19,10 @@ export class RenderModel extends BaseModel<RenderModel.Data> {
         this._angle = (value + 360) % 360;
     }
 
+    public get view(): IView {
+        return this._view;
+    }
+
     public set view(value: IView) {
         this._view = value;
     }

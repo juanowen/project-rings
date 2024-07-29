@@ -6,6 +6,7 @@ import { LockView } from "../view/LockView";
 import { LockModel } from "../model/LockModel";
 import { LinkModel } from "../model/LinkModel";
 import { LockablePieceModel } from "../model/LockablePieceModel";
+import { AngleUtil } from "../utils/AngleUtil";
 
 export namespace RingController {
     export type Options = {
@@ -34,24 +35,16 @@ export class RingController implements IController<RingView, cc.Event.EventTouch
                 const prevTouchPos = data.touch.getPreviousLocation();
                 const currentTouchPos = data.touch.getLocation();
 
-                const prevRad = Math.atan2(ringPos.y - prevTouchPos.y, ringPos.x - prevTouchPos.x);
-                const prevAngle = prevRad * 180 / Math.PI + 180;
-                const currentRad = Math.atan2(ringPos.y - currentTouchPos.y, ringPos.x - currentTouchPos.x);
-                const currentAngle = currentRad * 180 / Math.PI + 180;
-
-                const deltaAngle = prevAngle - currentAngle;
+                const deltaAngle = AngleUtil.getDeltaAngle(ringPos, prevTouchPos, currentTouchPos);
                 ringModel.angle = ringModelData.angle - deltaAngle;
 
                 ringModelData = ringModel.getData();
 
-                view.render(ringModelData);
+                view.rerender(ringModelData);
 
                 view.lockedBy.forEach((view: LockView) => {
                     const {colliderWorldPos} = view;
-
-                    const colliderRad = Math.atan2(ringPos.y - colliderWorldPos.y, ringPos.x - colliderWorldPos.x);
-                    const colliderAngle = colliderRad * 180 / Math.PI + 180;
-                    
+                    const colliderAngle = AngleUtil.getDegreeAngle(ringPos, colliderWorldPos);
                     const lockModel = this._fieldModel.getPieceModel(view);
                     
                     if (lockModel instanceof LockModel) {
@@ -64,6 +57,12 @@ export class RingController implements IController<RingView, cc.Event.EventTouch
 
                     if (lockableModel instanceof LockablePieceModel) {
                         lockableModel.updateLockedState();
+
+                        const lockableModelData = lockableModel.getData();
+
+                        if (!lockableModelData.isLocked) {
+                            lockableModel.view.rerender(lockableModelData); 
+                        }
                     }
                 });
 

@@ -68,7 +68,7 @@
                 "color": "red"
             }
         ],
-        "angle": 60,
+        "angle": 120,
         "gapRange": {
             "minAngle": 85,
             "maxAngle": 95

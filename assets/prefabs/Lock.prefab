@@ -84,6 +84,7 @@
       "__id__": 1
     },
     "_enabled": true,
+    "_renderSprite": null,
     "_destroyAnimator": {
       "__id__": 3
     },
@@ -97,6 +98,7 @@
       "__id__": 1
     },
     "_enabled": true,
+    "_duration": 0.5,
     "_id": ""
   },
   {

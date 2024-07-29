@@ -201,11 +201,11 @@
       "__id__": 1
     },
     "_enabled": true,
-    "_destroyAnimator": {
-      "__id__": 6
-    },
     "_renderSprite": {
       "__id__": 3
+    },
+    "_destroyAnimator": {
+      "__id__": 6
     },
     "_collider": {
       "__id__": 7
@@ -220,6 +220,8 @@
       "__id__": 1
     },
     "_enabled": true,
+    "_duration": 0.5,
+    "_delay": 0,
     "_id": ""
   },
   {

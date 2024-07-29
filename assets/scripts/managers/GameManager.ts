@@ -1,6 +1,3 @@
-// import { FieldModel } from "../model/FieldModel";
-// import { RenderModel } from "../model/RenderModel";
-// import { IView } from "../interface/IView";
 import { ConfigEntry } from "../type/Config";
 import { Injector } from "../injector/Injector";
 import { PieceFactory } from "../factory/PieceFactory";
@@ -28,24 +25,23 @@ export class GameManager extends cc.Component {
         this._initGame();
     }
 
-    protected _initGame(): void {
+    protected async _initGame() {
         if (this._config && this._fieldHolder) {
             const config = this._config.json;
-            // const fieldModel = new FieldModel();
+            const pieces = [];
 
             if (Array.isArray(config)) {
-                // const fieldData: Map<IView, RenderModel> = new Map();
-
-                config.forEach(async (piece: ConfigEntry) => {
-                    const payload = {configEntry: piece};
-                    const {node, view, model} = await this._pieceFactory.createPiece(piece.type, payload);
+                for (const entry of config) {
+                    const payload = {configEntry: entry};
+                    const {node} = await this._pieceFactory.createPiece(entry.type, payload);
                             
-                    // fieldData.set(view, model);
-                    this._fieldHolder.addChild(node);
-                });
-
-                // fieldModel.setData({ pieces: fieldData });
+                    pieces.push(node);
+                }
             }
+
+            pieces.forEach(piece => {
+                this._fieldHolder.addChild(piece);
+            });
         }
     }
 }

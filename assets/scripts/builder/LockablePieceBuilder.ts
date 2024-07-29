@@ -11,11 +11,13 @@ import { LockablePieceController } from "../controller/LockablePieceController";
 import { DestroyController } from "../controller/DestroyController";
 import { IView } from "../interface/IView";
 import { RenderModel } from "../model/RenderModel";
+import { IController } from "../interface/IController";
 
 export namespace LockablePieceBuilder {
     export type Options = PieceBuilder.Options & {
         blockerBuilder: BlockerPieceBuilder,
         linkModel: LinkModel,
+        handlers?: Record<string, IController<unknown>>,
     }
 
     export type LocksConfig = {
@@ -27,13 +29,14 @@ export namespace LockablePieceBuilder {
 export class LockablePieceBuilder extends PieceBuilder<PieceBuilder.Payload> {
     protected _blockerBuilder: BlockerPieceBuilder;
     protected _linkModel: LinkModel;
-;
+    protected _handlers: Record<string, IController<unknown>>;
 
-    constructor({blockerBuilder, linkModel, ...options}: LockablePieceBuilder.Options) {
+    constructor({blockerBuilder, linkModel, handlers, ...options}: LockablePieceBuilder.Options) {
         super(options);
 
         this._blockerBuilder = blockerBuilder;
         this._linkModel = linkModel;
+        this._handlers = handlers ?? {};
     }
 
     protected async _getPieceData(node: cc.Node, payload?: PieceBuilder.Payload): Promise<PieceFactory.PieceData> {
@@ -42,14 +45,13 @@ export class LockablePieceBuilder extends PieceBuilder<PieceBuilder.Payload> {
         const modelPayload = Object.assign({}, payload.configEntry, { locks: lockModels });
         const model = this._getModel(modelPayload) as LockablePieceModel;
 
-        this._bindHandlers(view);
-
         this._fieldModel.addPiece(view, model);
         lockViews.forEach((view: LockView) => {
             this._linkModel.addLink(view, model);
         });
 
-        this._updateSpriteFrame(view, payload.configEntry.color);
+        await this._updateSpriteFrame(view, payload.configEntry.color);
+        this._bindHandlers(view);
 
         return { node, view, model };
     }
@@ -63,8 +65,12 @@ export class LockablePieceBuilder extends PieceBuilder<PieceBuilder.Payload> {
     }
 
     protected _bindHandlers(view: LockablePieceView): void {
-        view.collisionHandler = new LockablePieceController({ fieldModel: this._fieldModel });
-        view.destroyHandler = new DestroyController({ fieldModel: this._fieldModel, linkModel: this._linkModel });
+        Object.entries(this._handlers).forEach(([key, handler]) => {
+            view[key] = handler;
+        });
+
+        // view.collisionHandler = new LockablePieceController({ fieldModel: this._fieldModel });
+        // view.destroyHandler = new DestroyController({ fieldModel: this._fieldModel, linkModel: this._linkModel });
     }
 
     protected async _configureLocks(payload: ConfigEntry, node: cc.Node, view: LockablePieceView): Promise<LockablePieceBuilder.LocksConfig> {

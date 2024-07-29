@@ -16,9 +16,9 @@ export class RingPieceBuilder extends LockablePieceBuilder {
         return new RingModel(payload);
     }
 
-    protected override _bindHandlers(view: RingView): void {
-        view.touchHandler = new RingController({ fieldModel: this._fieldModel, linkModel: this._linkModel });
-        view.collisionHandler = new LockablePieceController({ fieldModel: this._fieldModel });
-        view.destroyHandler = new DestroyController({ fieldModel: this._fieldModel, linkModel: this._linkModel });
-    }
+    // protected override _bindHandlers(view: RingView): void {
+    //     // view.touchHandler = new RingController({ fieldModel: this._fieldModel, linkModel: this._linkModel });
+    //     // view.collisionHandler = new LockablePieceController({ fieldModel: this._fieldModel });
+    //     // view.destroyHandler = new DestroyController({ fieldModel: this._fieldModel, linkModel: this._linkModel });
+    // }
 }

@@ -55,7 +55,7 @@ export class LockablePieceView extends BaseView implements IView<LockablePieceMo
         this._collisionHandler?.handle(this);
     }
 
-    public render(data?: LockablePieceModel.Data): void {
+    public rerender(data?: LockablePieceModel.Data): void {
         super.render(data);
 
         if (!data.isLocked) {

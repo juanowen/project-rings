@@ -10,9 +10,9 @@ export namespace LockablePieceModel {
 }
 
 export class LockablePieceModel extends RenderModel {
-    protected _locks: LockModel[] = [];
-    protected _lockedBy: LockModel[] = [];
-    protected _isLocked: boolean = true;
+    protected _locks: LockModel[];
+    protected _lockedBy: LockModel[];
+    protected _isLocked: boolean;
 
     public setData(data: LockablePieceModel.Data): void {
         super.setData(data);
