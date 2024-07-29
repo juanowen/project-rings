@@ -1,4 +1,3 @@
-import { BlockerPieceBuilder } from "../../builder/BlockerPieceBuilder";
 import { LockablePieceBuilder } from "../../builder/LockablePieceBuilder";
 import { RingPieceBuilder } from "../../builder/RingPieceBuilder";
 import { PieceType } from "../../enum/PieceType";
@@ -25,8 +24,7 @@ export default {
                 linkModel: ModelInjectorConfig.LinkModel,
                 handlers: {
                     'touchHandler': CommonInjectorConfig.RingController,
-                    'collisionHandler': CommonInjectorConfig.LockablePieceController,
-                    'destroyHandler': CommonInjectorConfig.DestroyController
+                    'releaseHandler': CommonInjectorConfig.LockablePieceController
                 }
             }),
             
@@ -36,8 +34,7 @@ export default {
                 blockerBuilder: CommonInjectorConfig.BlockerPieceBuilder,
                 linkModel: ModelInjectorConfig.LinkModel,
                 handlers: {
-                    'collisionHandler': CommonInjectorConfig.LockablePieceController,
-                    'destroyHandler': CommonInjectorConfig.DestroyController
+                    'releaseHandler': CommonInjectorConfig.LockablePieceController
                 }
             }),
         }

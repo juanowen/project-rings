@@ -1,4 +1,4 @@
-import { IAnimator } from "../interface/IAnimator";
+import { IAnimator } from "../../interface/IAnimator";
 
 const { ccclass, property } = cc._decorator;
 

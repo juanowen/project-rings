@@ -22,6 +22,8 @@ export class GameManager extends cc.Component {
     protected _pieceFactory: PieceFactory;
 
     protected onLoad(): void {
+        cc.macro.ENABLE_MULTI_TOUCH = false;
+
         this._initGame();
     }
 

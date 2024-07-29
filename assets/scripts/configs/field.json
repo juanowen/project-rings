@@ -6,16 +6,16 @@
         "locks": [
             {
                 "radius": 231,
-                "angle": 0,
-                "isLocked": true,
+                "angle": 300,
+                "color": "yellow"
+            },
+            {
+                "radius": 231,
+                "angle": 240,
                 "color": "yellow"
             }
         ],
         "angle": 0,
-        "gapRange": {
-            "minAngle": 85,
-            "maxAngle": 95
-        },
         "color": "yellow"
     },
     {
@@ -25,54 +25,32 @@
         "locks": [
             {
                 "radius": 231,
-                "angle": 0,
-                "isLocked": true,
+                "angle": 300,
+                "color": "pink"
+            },
+            {
+                "radius": 231,
+                "angle": 240,
                 "color": "pink"
             }
         ],
         "angle": 0,
-        "gapRange": {
-            "minAngle": 85,
-            "maxAngle": 95
-        },
         "color": "pink"
     },
     {
         "type": "ring",
-        "x": 462,
-        "y": 0,
-        "locks": [
-            {
-                "radius": 231,
-                "angle": 0,
-                "isLocked": false,
-                "color": "green"
-            }
-        ],
-        "angle": 0,
-        "gapRange": {
-            "minAngle": 85,
-            "maxAngle": 95
-        },
+        "x": -693,
+        "y": -400,
+        "locks": [],
+        "angle": 100,
         "color": "green"
     },
     {
         "type": "ring",
         "x": -231,
         "y": -400,
-        "locks": [
-            {
-                "radius": 231,
-                "angle": 0,
-                "isLocked": true,
-                "color": "red"
-            }
-        ],
-        "angle": 120,
-        "gapRange": {
-            "minAngle": 85,
-            "maxAngle": 95
-        },
+        "locks": [],
+        "angle": 190,
         "color": "red"
     },
     {
@@ -80,11 +58,7 @@
         "x": 231,
         "y": -400,
         "locks": [],
-        "angle": 60,
-        "gapRange": {
-            "minAngle": 85,
-            "maxAngle": 95
-        },
+        "angle": 280,
         "color": "blue"
     },
     {
@@ -95,14 +69,30 @@
             {
                 "radius": 0,
                 "angle": 0,
-                "isLocked": true,
                 "color": "yellow"
             },
             {
                 "radius": 0,
                 "angle": 180,
-                "isLocked": true,
                 "color": "yellow"
+            }
+        ],
+        "angle": 0
+    },
+    {
+        "type": "lock",
+        "x": -462,
+        "y": -400,
+        "locks": [
+            {
+                "radius": 0,
+                "angle": 0,
+                "color": "pink"
+            },
+            {
+                "radius": 0,
+                "angle": 180,
+                "color": "pink"
             }
         ],
         "angle": 0

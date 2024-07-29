@@ -46,8 +46,4 @@ export class RenderModel extends BaseModel<RenderModel.Data> {
     protected _renderView(): void {
         this.view?.render(this.getData());
     }
-
-    protected _rerenderView(): void {
-        this.view?.rerender(this.getData());
-    }
 }

@@ -25,10 +25,6 @@ export class BaseView extends cc.Component implements IView<RenderModel.Data> {
         this.node.angle = data.angle;
     }
 
-    public rerender(data?: RenderModel.Data): void {
-        this.render(data);
-    }
-
     public changeSpriteFrame(spriteFrame: cc.SpriteFrame): void {
         if (this,this._renderSprite) {
             this._renderSprite.spriteFrame = spriteFrame;

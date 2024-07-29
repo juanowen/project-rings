@@ -32,6 +32,4 @@ export class BlockerPieceBuilder extends PieceBuilder<BlockerPieceBuilder.Payloa
     protected _getModel(payload: BlockerPieceBuilder.Payload): RenderModel {
         return new LockModel(payload.configEntry)
     }
-
-    protected _bindHandlers(view: IView): void {}
 }

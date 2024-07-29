@@ -91,7 +91,7 @@
     "_id": ""
   },
   {
-    "__type__": "5df5dDxuldDSZG0/kk2nKq/",
+    "__type__": "389c5yFRfhHUZUY8mj2Af19",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -99,6 +99,7 @@
     },
     "_enabled": true,
     "_duration": 0.5,
+    "_delay": 0.25,
     "_id": ""
   },
   {

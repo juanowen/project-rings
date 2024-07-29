@@ -1,6 +1,8 @@
 import { LockModel } from "../model/LockModel";
 import { IView } from "../interface/IView";
 import { BaseView } from "./BaseView";
+import { LockablePieceView } from "./LockablePieceView";
+import { IController } from "../interface/IController";
 
 const { ccclass, property } = cc._decorator;
 
@@ -36,26 +38,41 @@ export class LockView extends BaseView implements IView<LockModel.Data> {
             this._setFillRange();
         }
     }
+    
+    protected _lockedView: LockablePieceView = null;
 
-    @property({
-        visible() {
-            return this._collider;
-        },
-        override: true
-    })
-    public get angle(): number {
-        return this._collider?.node.angle ?? 0;
+    public get lockedView(): LockablePieceView {
+        return this._lockedView;
     }
 
-    public set angle(value: number) {
-        if (this._collider) {
-            this._collider.node.angle = value;
-        }
+    protected _collisionHandler: IController<LockView> = null;
+
+    public set collisionHandler(value: IController<LockView>) {
+        this._collisionHandler = value;
     }
 
     public override render(data: LockModel.Data): void {
         this.angle = data.angle;
         this.radius = data.radius;
+    }
+
+    public addLockedView(view: LockablePieceView): void {
+        this._lockedView = view;
+
+        this._collisionHandler?.handle(this);
+    }
+
+    public deleteLockedView(): void {
+        const lockedView = this._lockedView;
+
+        this._lockedView = null;
+        this._collisionHandler?.handle(this);
+
+        lockedView?.release();
+    }
+
+    public destroyView(): void {
+        this._collider.enabled = false;
     }
     
     protected onLoad(): void {

@@ -1,4 +1,4 @@
-import { BaseAnimator } from "../components/BaseAnimator";
+import { BlockAnimator } from "../components/animator/BlockAnimator";
 import { IController } from "../interface/IController";
 import { LockablePieceView } from "./LockablePieceView";
 
@@ -13,10 +13,10 @@ export class RingView extends LockablePieceView {
     protected _collider: cc.Collider = null;
 
     @property({
-        type: BaseAnimator,
+        type: BlockAnimator,
         visible: true,
     })
-    protected _blockAnimator: BaseAnimator = null;
+    protected _blockAnimator: BlockAnimator = null;
 
     protected _touchHandler: IController<RingView, cc.Event.EventTouch> = null;
 
@@ -44,5 +44,11 @@ export class RingView extends LockablePieceView {
 
     public animateBlock(): void {
         this._blockAnimator.animate();
+    }
+
+    public destroyView(): void {
+        this._collider.enabled = false;
+
+        super.destroyView();
     }
 }

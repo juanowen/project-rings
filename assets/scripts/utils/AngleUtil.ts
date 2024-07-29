@@ -1,3 +1,10 @@
+export namespace AngleUtil {
+    export type Range = {
+        minAngle: number,
+        maxAngle: number,
+    }
+}
+
 export class AngleUtil {
     public static getRadAngle(posA: cc.Vec2, posB: cc.Vec2): number {
         return Math.atan2(posA.y - posB.y, posA.x - posB.x);
@@ -26,5 +33,9 @@ export class AngleUtil {
 
     public static validateAngle(degree: number): number {
         return (degree + 360) % 360;
+    }
+
+    public static isInRange(angle: number, range: AngleUtil.Range): boolean {
+        return range.minAngle <= angle && range.maxAngle >= angle;
     }
 }
