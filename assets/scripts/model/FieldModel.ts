@@ -11,7 +11,7 @@ export namespace FieldModel {
 export class FieldModel extends BaseModel<FieldModel.Data> {
     protected _pieces: Map<IView, RenderModel> = new Map();
 
-    public setData(data: FieldModel.Data): void {
+    public initData(data: FieldModel.Data): void {
         this._pieces = data.pieces;
     }
 

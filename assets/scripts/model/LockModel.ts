@@ -11,12 +11,8 @@ export class LockModel extends RenderModel {
     protected _radius: number;
     protected _isLocked: boolean;
 
-    public set isLocked(value: boolean) {
-        this._isLocked = value;
-    }
-
-    public setData(data: LockModel.Data): void {
-        super.setData(data);
+    public initData(data: LockModel.Data): void {
+        super.initData(data);
 
         this._radius = data.radius;
         this._isLocked = data.isLocked ?? false;

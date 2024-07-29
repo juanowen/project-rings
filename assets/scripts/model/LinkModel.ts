@@ -11,7 +11,7 @@ export namespace LinkModel {
 export class LinkModel extends BaseModel<LinkModel.Data> {
     protected _links: Map<LockView, LockablePieceModel> = new Map();
 
-    public setData(data: LinkModel.Data): void {
+    public initData(data: LinkModel.Data): void {
         this._links = data.links;
     }
 

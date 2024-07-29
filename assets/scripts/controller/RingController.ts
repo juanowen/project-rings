@@ -36,33 +36,24 @@ export class RingController implements IController<RingView, cc.Event.EventTouch
                 const currentTouchPos = data.touch.getLocation();
 
                 const deltaAngle = AngleUtil.getDeltaAngle(ringPos, prevTouchPos, currentTouchPos);
-                ringModel.angle = ringModelData.angle - deltaAngle;
-
-                ringModelData = ringModel.getData();
-
-                view.rerender(ringModelData);
+                ringModel.updateData({angle: AngleUtil.validateAngle(ringModelData.angle - deltaAngle)});
 
                 view.lockedBy.forEach((view: LockView) => {
                     const {colliderWorldPos} = view;
                     const colliderAngle = AngleUtil.getDegreeAngle(ringPos, colliderWorldPos);
+
                     const lockModel = this._fieldModel.getPieceModel(view);
                     
                     if (lockModel instanceof LockModel) {
                         const isUnlocked = ringModelData.gapRange.minAngle + ringModelData.angle <= colliderAngle && ringModelData.gapRange.maxAngle + ringModelData.angle >= colliderAngle;
 
-                        lockModel.isLocked = !isUnlocked;
+                        lockModel.updateData({isLocked: !isUnlocked});
                     }
                     
                     const lockableModel = this._linkModel.getLinkedModel(view);
 
                     if (lockableModel instanceof LockablePieceModel) {
                         lockableModel.updateLockedState();
-
-                        const lockableModelData = lockableModel.getData();
-
-                        if (!lockableModelData.isLocked) {
-                            lockableModel.view.rerender(lockableModelData); 
-                        }
                     }
                 });
 

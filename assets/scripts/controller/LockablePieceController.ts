@@ -23,12 +23,14 @@ export class LockablePieceController implements IController<LockablePieceView> {
 
         if (lockablePieceModel instanceof LockablePieceModel) {
             const locksModels = view.locks.map((view: LockView) => this._fieldModel.getPieceModel(view));
-
-            lockablePieceModel.updateLocks(locksModels as LockModel[]);
-
             const lockedByModels = view.lockedBy.map((view: LockView) => this._fieldModel.getPieceModel(view));
 
-            lockablePieceModel.updateLockedBy(lockedByModels as LockModel[]);
+            lockablePieceModel.updateData({
+                locks: locksModels,
+                lockedBy: lockedByModels
+            });
+
+            lockablePieceModel.updateLockedState();
         }
     }
 }

@@ -16,8 +16,8 @@ export namespace RingModel {
 export class RingModel extends LockablePieceModel {
     protected _gapRange: RingModel.GapRange;
 
-    public setData(data: RingModel.Data): void {
-        super.setData(data);
+    public initData(data: RingModel.Data): void {
+        super.initData(data);
 
         this._gapRange = data.gapRange;
     }

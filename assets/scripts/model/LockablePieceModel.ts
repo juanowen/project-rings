@@ -14,11 +14,11 @@ export class LockablePieceModel extends RenderModel {
     protected _lockedBy: LockModel[];
     protected _isLocked: boolean;
 
-    public setData(data: LockablePieceModel.Data): void {
-        super.setData(data);
+    public initData(data: LockablePieceModel.Data): void {
+        super.initData(data);
 
         this._locks = data.locks ?? [];
-        this.updateLockedBy(data.lockedBy);
+        this._lockedBy = data.lockedBy ?? [];
     }
 
     public getData(): LockablePieceModel.Data {
@@ -29,21 +29,13 @@ export class LockablePieceModel extends RenderModel {
         });
     }
 
-    public updateLocks(locks: LockModel[]) {
-        this._locks = locks ?? [];
-
-        this.updateLockedState();
-    }
-
-    public updateLockedBy(lockedBy: LockModel[]) {
-        this._lockedBy = lockedBy ?? [];
-
-        this.updateLockedState();
-    }
-
     public updateLockedState(): void {
-        const locks =  [...this._locks, ...this._lockedBy];
+        const locks = [...this._locks, ...this._lockedBy];
 
         this._isLocked = locks.some((lock: LockModel) => lock.getData().isLocked);
+
+        if (!this._isLocked) {
+            this._rerenderView();
+        }
     }
 }

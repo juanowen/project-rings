@@ -23,4 +23,8 @@ export class AngleUtil {
     public static degreeToRad(degree: number): number {
         return (degree - 180) * Math.PI / 180;
     }
+
+    public static validateAngle(degree: number): number {
+        return (degree + 360) % 360;
+    }
 }
