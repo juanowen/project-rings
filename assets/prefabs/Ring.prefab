@@ -30,14 +30,17 @@
         "__id__": 7
       },
       {
-        "__id__": 8
+        "__id__": 9
       },
       {
         "__id__": 6
+      },
+      {
+        "__id__": 8
       }
     ],
     "_prefab": {
-      "__id__": 9
+      "__id__": 10
     },
     "_opacity": 255,
     "_color": {
@@ -210,6 +213,9 @@
     "_collider": {
       "__id__": 7
     },
+    "_blockAnimator": {
+      "__id__": 8
+    },
     "_id": ""
   },
   {
@@ -239,6 +245,20 @@
       "y": 0
     },
     "_radius": 220,
+    "_id": ""
+  },
+  {
+    "__type__": "45b1fPriENA94TgCm3YNEC7",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_duration": 0.5,
+    "_delay": 0,
+    "_cycleCount": 5,
+    "_amplitude": 3,
     "_id": ""
   },
   {

@@ -3,17 +3,17 @@ import { BaseView } from "./BaseView";
 import { IView } from "../interface/IView";
 import { LockView } from "./LockView";
 import { IController } from "../interface/IController";
-import { DestroyAnimator } from "../components/DestroyAnimator";
+import { BaseAnimator } from "../components/BaseAnimator";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
 export class LockablePieceView extends BaseView implements IView<LockablePieceModel.Data> {
     @property({
-        type: DestroyAnimator,
+        type: BaseAnimator,
         visible: true,
     })
-    protected _destroyAnimator: DestroyAnimator = null;
+    protected _destroyAnimator: BaseAnimator = null;
 
     protected _locks: Set<LockView> = new Set();
     protected _lockedBy: Set<LockView> = new Set();

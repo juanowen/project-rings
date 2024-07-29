@@ -1,21 +1,13 @@
-import { IAnimator } from "../interface/IAnimator";
+import { BaseAnimator } from "./BaseAnimator";
 
-const { ccclass, property } = cc._decorator;
+const { ccclass } = cc._decorator;
 
 @ccclass
-export class DestroyAnimator extends cc.Component implements IAnimator {
-    @property({
-        visible: true,
-    })
-    protected _duration: number = 0.5;
-
-    @property({
-        visible: true,
-    })
-    protected _delay: number = 0.25;
-
+export class DestroyAnimator extends BaseAnimator {
     public animate(): void {
-        cc.tween(this.node)
+        this._tween?.stop();
+
+        this._tween = cc.tween(this.node)
             .delay(this._delay)
             .to(this._duration, { y: this.node.y - 200, opacity: 0 }, { easing: cc.easing.backIn })
             .call(() => {

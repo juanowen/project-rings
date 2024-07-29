@@ -28,37 +28,49 @@ export class RingController implements IController<RingView, cc.Event.EventTouch
         const ringModel = this._fieldModel.getPieceModel(view);
 
         if (ringModel instanceof RingModel) {
-            let ringModelData = ringModel.getData();
+            this._handleRotation(view, data, ringModel);
+            this._handleLockedBy(view, data, ringModel);
 
-            if (ringModelData.isRotatable) {
-                const ringPos = data.currentTarget.convertToWorldSpaceAR(cc.Vec2.ZERO);
-                const prevTouchPos = data.touch.getPreviousLocation();
-                const currentTouchPos = data.touch.getLocation();
-
-                const deltaAngle = AngleUtil.getDeltaAngle(ringPos, prevTouchPos, currentTouchPos);
-                ringModel.updateData({angle: AngleUtil.validateAngle(ringModelData.angle - deltaAngle)});
-
-                view.lockedBy.forEach((view: LockView) => {
-                    const {colliderWorldPos} = view;
-                    const colliderAngle = AngleUtil.getDegreeAngle(ringPos, colliderWorldPos);
-
-                    const lockModel = this._fieldModel.getPieceModel(view);
-                    
-                    if (lockModel instanceof LockModel) {
-                        const isUnlocked = ringModelData.gapRange.minAngle + ringModelData.angle <= colliderAngle && ringModelData.gapRange.maxAngle + ringModelData.angle >= colliderAngle;
-
-                        lockModel.updateData({isLocked: !isUnlocked});
-                    }
-                    
-                    const lockableModel = this._linkModel.getLinkedModel(view);
-
-                    if (lockableModel instanceof LockablePieceModel) {
-                        lockableModel.updateLockedState();
-                    }
-                });
-
-                ringModel.updateLockedState();
-            }
+            ringModel.updateLockedState();
         }
+    }
+
+    protected _handleRotation(view: RingView, data: cc.Event.EventTouch, ringModel: RingModel) {
+        const ringModelData = ringModel.getData();
+
+        if (ringModelData.isRotatable) {
+            const ringPos = data.currentTarget.convertToWorldSpaceAR(cc.Vec2.ZERO);
+            const prevTouchPos = data.touch.getPreviousLocation();
+            const currentTouchPos = data.touch.getLocation();
+
+            const deltaAngle = AngleUtil.getDeltaAngle(ringPos, prevTouchPos, currentTouchPos);
+            ringModel.updateData({angle: AngleUtil.validateAngle(ringModelData.angle - deltaAngle)});
+        } else {
+            view.animateBlock();
+        }
+    }
+
+    protected _handleLockedBy(view: RingView, data: cc.Event.EventTouch, ringModel: RingModel) {
+        const ringModelData = ringModel.getData();
+        const ringPos = data.currentTarget.convertToWorldSpaceAR(cc.Vec2.ZERO);
+
+        view.lockedBy.forEach((view: LockView) => {
+            const {colliderWorldPos} = view;
+            const colliderAngle = AngleUtil.getDegreeAngle(ringPos, colliderWorldPos);
+
+            const lockModel = this._fieldModel.getPieceModel(view);
+            
+            if (lockModel instanceof LockModel) {
+                const isUnlocked = ringModelData.gapRange.minAngle + ringModelData.angle <= colliderAngle && ringModelData.gapRange.maxAngle + ringModelData.angle >= colliderAngle;
+
+                lockModel.updateData({isLocked: !isUnlocked});
+            }
+            
+            const lockableModel = this._linkModel.getLinkedModel(view);
+
+            if (lockableModel instanceof LockablePieceModel) {
+                lockableModel.updateLockedState();
+            }
+        });
     }
 }

@@ -511,7 +511,7 @@
       "z": 0
     },
     "_enableCollision": true,
-    "_debugCollision": true,
+    "_debugCollision": false,
     "_id": "ebys7+QbFH/pYH+I0jSyTP"
   }
 ]
