@@ -1,34 +1,36 @@
 import { IController } from "../interface/IController";
 import { FieldModel } from "../model/FieldModel";
+import { LinkModel } from "../model/LinkModel";
 import { LockablePieceModel } from "../model/LockablePieceModel";
-import { LockModel } from "../model/LockModel";
 import { LockablePieceView } from "../view/LockablePieceView";
 import { LockView } from "../view/LockView";
 
-export namespace LockablePieceController {
+export namespace DestroyController {
     export type Options = {
         fieldModel: FieldModel,
+        linkModel: LinkModel,
     }
 }
 
-export class LockablePieceController implements IController<LockablePieceView> {
+export class DestroyController implements IController<LockablePieceView> {
     private _fieldModel: FieldModel;
+    private _linkModel: LinkModel;
 
-    constructor({ fieldModel }: LockablePieceController.Options) {
+    constructor({ fieldModel, linkModel }: DestroyController.Options) {
         this._fieldModel = fieldModel;
+        this._linkModel = linkModel;
     }
 
     handle(view: LockablePieceView): void {
         const lockablePieceModel = this._fieldModel.getPieceModel(view);
 
         if (lockablePieceModel instanceof LockablePieceModel) {
-            const locksModels = view.locks.map((view: LockView) => this._fieldModel.getPieceModel(view));
+            view.locks.forEach((lockView: LockView) => {
+                this._fieldModel.removePiece(lockView);
+                this._linkModel.removeLink(lockView);
+            });
 
-            lockablePieceModel.updateLocks(locksModels as LockModel[]);
-
-            const lockedByModels = view.lockedBy.map((view: LockView) => this._fieldModel.getPieceModel(view));
-
-            lockablePieceModel.updateLockedBy(lockedByModels as LockModel[]);
+            this._fieldModel.removePiece(view);
         }
     }
 }

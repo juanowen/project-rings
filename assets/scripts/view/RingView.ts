@@ -6,12 +6,6 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export class RingView extends LockablePieceView {
     @property({
-        type: cc.Sprite,
-        visible: true,
-    })
-    protected _renderSprite: cc.Sprite = null;
-
-    @property({
         type: cc.Collider,
         visible: true,
     })

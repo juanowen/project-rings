@@ -21,7 +21,7 @@ export class LockCollisionHandler extends cc.Component {
             const lockView = other.node.parent.getComponent(LockView);
 
             if (lockView) {
-                this._lockablePieceView.addLockView(lockView);
+                this._lockablePieceView.addLockedBy(lockView);
             }
         }
     }
@@ -31,7 +31,7 @@ export class LockCollisionHandler extends cc.Component {
             const lockView = other.node.parent.getComponent(LockView);
 
             if (lockView) {
-                this._lockablePieceView.deleteLockView(lockView);
+                this._lockablePieceView.deleteLockedBy(lockView);
             }
         }
     }

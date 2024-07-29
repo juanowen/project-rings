@@ -4,6 +4,7 @@ import { RingPieceBuilder } from "../../builder/RingPieceBuilder";
 import { PieceType } from "../../enum/PieceType";
 import { PieceFactory } from "../../factory/PieceFactory";
 import { BundlePrefabGetter } from "../../getter/BundlePrefabGetter";
+import { ColorSpriteFrameGetter } from "../../getter/ColorSpriteFrameGetter";
 import { BundleLoader } from "../../loader/BundleLoader";
 import ModelInjectorConfig from "./ModelInjectorConfig";
 
@@ -17,9 +18,11 @@ export default {
         builderMap: {
             [PieceType.Ring]: new RingPieceBuilder({
                 prefabGetter: new BundlePrefabGetter('prefabs', 'Ring'),
+                spriteFrameGetter: new ColorSpriteFrameGetter('images', 'ring_'),
                 fieldModel: ModelInjectorConfig.FieldModel,
                 blockerBuilder: new BlockerPieceBuilder({
                     prefabGetter: new BundlePrefabGetter('prefabs', 'LockView'),
+                    spriteFrameGetter: new ColorSpriteFrameGetter('images', 'single_blocker_'),
                     fieldModel: ModelInjectorConfig.FieldModel,
                 }),
                 linkModel: ModelInjectorConfig.LinkModel
@@ -30,6 +33,7 @@ export default {
                 fieldModel: ModelInjectorConfig.FieldModel,
                 blockerBuilder: new BlockerPieceBuilder({
                     prefabGetter: new BundlePrefabGetter('prefabs', 'LockView'),
+                    spriteFrameGetter: new ColorSpriteFrameGetter('images', 'single_blocker_'),
                     fieldModel: ModelInjectorConfig.FieldModel,
                 }),
                 linkModel: ModelInjectorConfig.LinkModel

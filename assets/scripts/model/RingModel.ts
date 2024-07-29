@@ -1,8 +1,10 @@
 import { LockablePieceModel } from "./LockablePieceModel";
+import { LockModel } from "./LockModel";
 
 export namespace RingModel {
     export type Data = LockablePieceModel.Data & {
         gapRange: GapRange,
+        isRotatable: boolean,
     }
 
     export type GapRange = {
@@ -21,6 +23,13 @@ export class RingModel extends LockablePieceModel {
     }
 
     public getData(): RingModel.Data {
-        return Object.assign({gapRange: this._gapRange}, super.getData());
+        return Object.assign({
+            gapRange: this._gapRange,
+            isRotatable: this._checkRotateAbility()
+        }, super.getData());
+    }
+
+    protected _checkRotateAbility(): boolean {
+        return this._locks.every((lock: LockModel) => !lock.getData().isLocked);
     }
 }

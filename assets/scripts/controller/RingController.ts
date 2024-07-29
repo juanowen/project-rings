@@ -27,7 +27,9 @@ export class RingController implements IController<RingView, cc.Event.EventTouch
         const ringModel = this._fieldModel.getPieceModel(view);
 
         if (ringModel instanceof RingModel) {
-            if (!this._ringIsLocked(ringModel.getData())) {
+            let ringModelData = ringModel.getData();
+
+            if (ringModelData.isRotatable) {
                 const ringPos = data.currentTarget.convertToWorldSpaceAR(cc.Vec2.ZERO);
                 const prevTouchPos = data.touch.getPreviousLocation();
                 const currentTouchPos = data.touch.getLocation();
@@ -38,13 +40,13 @@ export class RingController implements IController<RingView, cc.Event.EventTouch
                 const currentAngle = currentRad * 180 / Math.PI + 180;
 
                 const deltaAngle = prevAngle - currentAngle;
-                ringModel.angle -= deltaAngle;
+                ringModel.angle = ringModelData.angle - deltaAngle;
 
-                const modelData = ringModel.getData();
+                ringModelData = ringModel.getData();
 
-                view.render(modelData);
+                view.render(ringModelData);
 
-                view.locks.forEach((view: LockView) => {
+                view.lockedBy.forEach((view: LockView) => {
                     const {colliderWorldPos} = view;
 
                     const colliderRad = Math.atan2(ringPos.y - colliderWorldPos.y, ringPos.x - colliderWorldPos.x);
@@ -53,7 +55,7 @@ export class RingController implements IController<RingView, cc.Event.EventTouch
                     const lockModel = this._fieldModel.getPieceModel(view);
                     
                     if (lockModel instanceof LockModel) {
-                        const isUnlocked = modelData.gapRange.minAngle + modelData.angle <= colliderAngle && modelData.gapRange.maxAngle + modelData.angle >= colliderAngle;
+                        const isUnlocked = ringModelData.gapRange.minAngle + ringModelData.angle <= colliderAngle && ringModelData.gapRange.maxAngle + ringModelData.angle >= colliderAngle;
 
                         lockModel.isLocked = !isUnlocked;
                     }
@@ -64,13 +66,9 @@ export class RingController implements IController<RingView, cc.Event.EventTouch
                         lockableModel.updateLockedState();
                     }
                 });
+
+                ringModel.updateLockedState();
             }
         }
     }
-
-    protected _ringIsLocked(data: RingModel.Data): boolean {
-        return data.locks.some(lock => lock.getData().isLocked);
-    }
-
-
 }

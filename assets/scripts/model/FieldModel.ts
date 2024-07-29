@@ -27,5 +27,11 @@ export class FieldModel extends BaseModel<FieldModel.Data> {
 
     public addPiece(view: IView, model: RenderModel): void {
         this._pieces.set(view, model);
+
+        model.view = view;
+    }
+
+    public removePiece(view: IView): void {
+        this._pieces.delete(view);
     }
 }

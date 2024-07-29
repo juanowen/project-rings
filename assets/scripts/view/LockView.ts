@@ -1,16 +1,11 @@
 import { LockModel } from "../model/LockModel";
 import { IView } from "../interface/IView";
+import { BaseView } from "./BaseView";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export class LockView extends cc.Component implements IView<LockModel.Data> {
-    @property({
-        type: cc.Sprite,
-        visible: true,
-    })
-    protected _renderSprite: cc.Sprite = null;
-
+export class LockView extends BaseView implements IView<LockModel.Data> {
     @property({
         type: cc.CircleCollider,
         visible: true,
@@ -45,7 +40,8 @@ export class LockView extends cc.Component implements IView<LockModel.Data> {
     @property({
         visible() {
             return this._collider;
-        }
+        },
+        override: true
     })
     public get angle(): number {
         return this._collider?.node.angle ?? 0;
@@ -57,7 +53,7 @@ export class LockView extends cc.Component implements IView<LockModel.Data> {
         }
     }
 
-    public render(data: LockModel.Data): void {
+    public override render(data: LockModel.Data): void {
         this.angle = data.angle;
         this.radius = data.radius;
     }

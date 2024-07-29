@@ -1,3 +1,4 @@
+import { IView } from "../interface/IView";
 import { BaseModel } from "./BaseModel";
 
 export namespace RenderModel {
@@ -12,13 +13,14 @@ export class RenderModel extends BaseModel<RenderModel.Data> {
     protected _x: number;
     protected _y: number;
     protected _angle: number;
-    
-    public get angle(): number {
-        return this._angle;
-    }
+    protected _view: IView;
 
     public set angle(value: number) {
         this._angle = (value + 360) % 360;
+    }
+
+    public set view(value: IView) {
+        this._view = value;
     }
 
     public setData(data: RenderModel.Data): void {

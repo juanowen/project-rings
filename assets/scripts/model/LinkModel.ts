@@ -21,11 +21,15 @@ export class LinkModel extends BaseModel<LinkModel.Data> {
         }
     }
 
+    public getLinkedModel(view: LockView): LockablePieceModel {
+        return this._links.get(view);
+    }
+
     public addLink(view: LockView, model: LockablePieceModel): void {
         this._links.set(view, model);
     }
 
-    public getLinkedModel(view: LockView): LockablePieceModel {
-        return this._links.get(view);
+    public removeLink(view: LockView): void {
+        this._links.delete(view);
     }
 }

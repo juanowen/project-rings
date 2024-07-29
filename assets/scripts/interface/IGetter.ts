@@ -1,3 +1,3 @@
-export interface IGetter<Value> {
-    get(): Promise<Value> | Value;
+export interface IGetter<Value, Params = unknown> {
+    get(params?: Params): Promise<Value> | Value;
 }
