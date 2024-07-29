@@ -9,10 +9,25 @@ import CommonInjectorConfig from "./CommonInjectorConfig";
 import ModelInjectorConfig from "./ModelInjectorConfig";
 
 export default {
-    'BundleLoader': new BundleLoader([
-        'images',
-        'prefabs'
-    ]),
+    'BundleLoader': new BundleLoader({
+        'images': [
+            'ring_blue',
+            'ring_green',
+            'ring_pink',
+            'ring_red',
+            'ring_yellow',
+            'single_blocker_blue',
+            'single_blocker_green',
+            'single_blocker_pink',
+            'single_blocker_red',
+            'single_blocker_yellow',
+        ],
+        'prefabs': [
+            'Lock',
+            'LockView',
+            'Ring'
+        ]
+    }),
 
     'PieceFactory': new PieceFactory({
         builderMap: {
