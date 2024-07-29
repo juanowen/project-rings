@@ -2,7 +2,8 @@
   "group-list": [
     "default",
     "ring",
-    "lock"
+    "lock",
+    "limiter"
   ],
   "collision-matrix": [
     [
@@ -11,11 +12,18 @@
     [
       false,
       false,
+      true,
       true
     ],
     [
       false,
       true,
+      true
+    ],
+    [
+      false,
+      true,
+      false,
       true
     ]
   ],

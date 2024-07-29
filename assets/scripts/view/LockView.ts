@@ -3,6 +3,7 @@ import { IView } from "../interface/IView";
 import { BaseView } from "./BaseView";
 import { LockablePieceView } from "./LockablePieceView";
 import { IController } from "../interface/IController";
+import { RotationLimiterComponent } from "../components/RotationLimiterComponent";
 
 const { ccclass, property } = cc._decorator;
 
@@ -13,6 +14,16 @@ export class LockView extends BaseView implements IView<LockModel.Data> {
         visible: true,
     })
     protected _collider: cc.CircleCollider = null;
+    
+    @property({
+        type: RotationLimiterComponent,
+        visible: true,
+    })
+    protected _rotationLimiter: RotationLimiterComponent = null;
+
+    public get rotationLimiter(): RotationLimiterComponent {
+        return this._rotationLimiter;
+    }
 
     public get colliderWorldPos(): cc.Vec2 {
         if (this._collider) {
