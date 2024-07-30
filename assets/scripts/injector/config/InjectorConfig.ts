@@ -36,7 +36,6 @@ export default {
                 spriteFrameGetter: new ColorSpriteFrameGetter('images', 'ring_'),
                 fieldModel: ModelInjectorConfig.FieldModel,
                 blockerBuilder: CommonInjectorConfig.BlockerPieceBuilder,
-                linkModel: ModelInjectorConfig.LinkModel,
                 handlers: {
                     'touchHandler': CommonInjectorConfig.RingController,
                     'releaseHandler': CommonInjectorConfig.LockablePieceController
@@ -47,7 +46,6 @@ export default {
                 prefabGetter: new BundlePrefabGetter('prefabs', 'Lock'),
                 fieldModel: ModelInjectorConfig.FieldModel,
                 blockerBuilder: CommonInjectorConfig.BlockerPieceBuilder,
-                linkModel: ModelInjectorConfig.LinkModel,
                 handlers: {
                     'releaseHandler': CommonInjectorConfig.LockablePieceController
                 }

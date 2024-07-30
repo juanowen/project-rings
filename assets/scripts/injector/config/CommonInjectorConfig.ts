@@ -15,10 +15,8 @@ export default {
         handlers: {
             'collisionHandler': new LockController({
                 fieldModel: ModelInjectorConfig.FieldModel,
-                linkModel: ModelInjectorConfig.LinkModel,
                 lockablePieceController: new LockablePieceController({
                     fieldModel: ModelInjectorConfig.FieldModel,
-                    linkModel: ModelInjectorConfig.LinkModel,
                 })
             }),
         }
@@ -33,6 +31,5 @@ export default {
 
     'LockablePieceController': new LockablePieceController({
         fieldModel: ModelInjectorConfig.FieldModel,
-        linkModel: ModelInjectorConfig.LinkModel,
     })
 }
