@@ -1,7 +1,3 @@
-import { PieceType } from "../enum/PieceType";
-import { FieldModel } from "../model/FieldModel";
-import { RingView } from "./RingView";
-
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -31,10 +27,10 @@ export class TutorialView extends cc.Component {
     protected _tutorialTimeout: number = 3;
 
     protected _sleepTimer: number = 0;
-    protected _fieldModel: FieldModel = null;
+    protected _target: cc.Node = null;
 
-    public set fieldModel(value: FieldModel) {
-        this._fieldModel = value;
+    public set target(value: cc.Node) {
+        this._target = value;
     }
 
     protected update(dt: number): void {
@@ -49,20 +45,15 @@ export class TutorialView extends cc.Component {
     }
 
     protected _playTutorial() {
-        if (this._fieldModel) {
-            const views = this._fieldModel.getViewsByType(PieceType.Ring);
-            const ring = views.find(view => view instanceof RingView);
+        if (this._target) {
+            const ringWorldPos = this._target.convertToWorldSpaceAR(cc.Vec2.ZERO);
+            const ringLocalPos = this.node.parent.convertToNodeSpaceAR(ringWorldPos);
 
-            if (ring) {
-                const ringWorldPos = ring.node.convertToWorldSpaceAR(cc.Vec2.ZERO);
-                const ringLocalPos = this.node.parent.convertToNodeSpaceAR(ringWorldPos);
+            this.node.setPosition(ringLocalPos);
 
-                this.node.setPosition(ringLocalPos);
-
-                this._animation?.play();
-                this._spine?.setAnimation(0, this._spineAnimationName, true);
-                this.node.opacity = 255;
-            }
+            this._animation?.play();
+            this._spine?.setAnimation(0, this._spineAnimationName, true);
+            this.node.opacity = 255;
         }
     }
 

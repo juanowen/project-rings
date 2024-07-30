@@ -74,5 +74,6 @@ export default {
         }
     }),
 
+    'TutorialController': CommonInjectorConfig.TutorialController,
     'FieldModel': ModelInjectorConfig.FieldModel
 };

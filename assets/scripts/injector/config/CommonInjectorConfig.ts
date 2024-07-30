@@ -37,11 +37,17 @@ export default {
         fieldModel: ModelInjectorConfig.FieldModel,
         tutorialController: new TutorialController({
             tutorNodePath: 'Canvas/Tutorial',
+            fieldModel: ModelInjectorConfig.FieldModel
         })
     }),
 
     'LockablePieceController': new LockablePieceController({
         fieldModel: ModelInjectorConfig.FieldModel,
+    }),
+
+    'TutorialController': new TutorialController({
+        tutorNodePath: 'Canvas/Tutorial',
+        fieldModel: ModelInjectorConfig.FieldModel
     }),
 
     'CacheManager': CacheResolver

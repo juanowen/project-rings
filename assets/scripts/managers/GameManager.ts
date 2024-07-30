@@ -1,8 +1,7 @@
-import { ConfigEntry } from "../type/Config";
 import { Injector } from "../injector/Injector";
 import { PieceFactory } from "../factory/PieceFactory";
-import { FieldModel } from "../model/FieldModel";
 import { TutorialView } from "../view/TutorialView";
+import { IController } from "../interface/IController";
 
 const { ccclass, property } = cc._decorator;
 
@@ -20,16 +19,10 @@ export class GameManager extends cc.Component {
     })
     protected _fieldHolder: cc.Node = null;
 
-    @property({
-        type: TutorialView,
-        visible: true,
-    })
-    protected _tutorialView: TutorialView = null;
-
     @Injector('PieceFactory')
     protected _pieceFactory: PieceFactory;
-    @Injector('FieldModel')
-    protected _fieldModel: FieldModel;
+    @Injector('TutorialController')
+    protected _tutorialController: IController<TutorialView>;
 
     protected onLoad(): void {
         cc.macro.ENABLE_MULTI_TOUCH = false;
@@ -55,7 +48,7 @@ export class GameManager extends cc.Component {
                 this._fieldHolder.addChild(piece);
             });
 
-            this._tutorialView.fieldModel = this._fieldModel;
+            this._tutorialController?.handle();
         }
     }
 }
