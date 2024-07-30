@@ -2,7 +2,9 @@
   "title": "Rings",
   "packageName": "org.cocos2d.demo",
   "startScene": "7c0e4e1e-d264-4cea-8aac-63f44140c54e",
-  "excludeScenes": [],
+  "excludeScenes": [
+    "1c210cd7-119b-4f2c-b490-a2803d709a71"
+  ],
   "orientation": {
     "landscapeRight": true,
     "landscapeLeft": true,
