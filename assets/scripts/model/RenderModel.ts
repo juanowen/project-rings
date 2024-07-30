@@ -1,8 +1,10 @@
+import { PieceType } from "../enum/PieceType";
 import { IView } from "../interface/IView";
 import { BaseModel } from "./BaseModel";
 
 export namespace RenderModel {
     export type Data = {
+        type?: string,
         x?: number,
         y?: number,
         angle?: number,
@@ -10,6 +12,7 @@ export namespace RenderModel {
 }
 
 export class RenderModel extends BaseModel<RenderModel.Data> {
+    protected _type: PieceType;
     protected _x: number;
     protected _y: number;
     protected _angle: number;
@@ -37,6 +40,7 @@ export class RenderModel extends BaseModel<RenderModel.Data> {
 
     public getData(): RenderModel.Data {
         return {
+            type: this._type,
             x: this._x,
             y: this._y,
             angle: this._angle,

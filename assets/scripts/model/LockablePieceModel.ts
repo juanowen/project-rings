@@ -1,3 +1,4 @@
+import { PieceType } from "../enum/PieceType";
 import { LockModel } from "./LockModel"
 import { RenderModel } from "./RenderModel";
 
@@ -15,6 +16,7 @@ export class LockablePieceModel extends RenderModel {
     public initData(data: LockablePieceModel.Data): void {
         super.initData(data);
 
+        this._type = PieceType.LockablePiece;
         this._locks = data.locks ?? [];
     }
 

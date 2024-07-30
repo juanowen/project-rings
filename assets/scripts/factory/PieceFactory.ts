@@ -1,10 +1,9 @@
-import { PieceType } from "../enum/PieceType";
 import { IView } from "../interface/IView";
 import { RenderModel } from "../model/RenderModel";
 
 export namespace PieceFactory {
     export type Options = {
-        builderMap: Record<PieceType, IPieceBuilder>,
+        builderMap: Record<string, IPieceBuilder>,
     }
 
     export type PieceData = {
@@ -19,7 +18,7 @@ export namespace PieceFactory {
 }
 
 export class PieceFactory {
-    private _builderMap: Record<PieceType, PieceFactory.IPieceBuilder>;
+    private _builderMap: Record<string, PieceFactory.IPieceBuilder>;
 
     constructor({builderMap}: PieceFactory.Options) {
         this._builderMap = builderMap;

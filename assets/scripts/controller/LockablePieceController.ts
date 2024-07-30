@@ -1,3 +1,4 @@
+import { PieceType } from "../enum/PieceType";
 import { IController } from "../interface/IController";
 import { FieldModel } from "../model/FieldModel";
 import { LockablePieceModel } from "../model/LockablePieceModel";
@@ -23,9 +24,9 @@ export class LockablePieceController implements IController<LockablePieceView> {
 
         if (lockablePieceModel instanceof LockablePieceModel) {
             const modelData = lockablePieceModel.getData();
-            const allLocks = Array.from(this._fieldModel.getData().pieces.values());
+            const allLocks = this._fieldModel.getModelsByType(PieceType.Lock);
 
-            const viewIsLocked = allLocks.some(piece => piece instanceof LockModel && piece.getData().lockedTarget === lockablePieceModel);
+            const viewIsLocked = allLocks.some((piece: LockModel) => piece.getData().lockedTarget === lockablePieceModel);
             const hasLockedLock = modelData.locks.some((lock: LockModel) => lock.getData().isLocked);
 
             if (!viewIsLocked && !hasLockedLock) {

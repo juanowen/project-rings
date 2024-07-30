@@ -1,3 +1,4 @@
+import { PieceType } from "../enum/PieceType";
 import { FieldModel } from "../model/FieldModel";
 import { RingView } from "./RingView";
 
@@ -49,7 +50,7 @@ export class TutorialView extends cc.Component {
 
     protected _playTutorial() {
         if (this._fieldModel) {
-            const views = Array.from(this._fieldModel.getData().pieces.keys());
+            const views = this._fieldModel.getViewsByType(PieceType.Ring);
             const ring = views.find(view => view instanceof RingView);
 
             if (ring) {

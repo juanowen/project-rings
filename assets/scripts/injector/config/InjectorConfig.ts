@@ -42,7 +42,7 @@ export default {
                 }
             }),
             
-            [PieceType.Lock]: new LockablePieceBuilder({
+            [PieceType.LockablePiece]: new LockablePieceBuilder({
                 prefabGetter: new BundlePrefabGetter('prefabs', 'Lock'),
                 fieldModel: ModelInjectorConfig.FieldModel,
                 blockerBuilder: CommonInjectorConfig.BlockerPieceBuilder,
