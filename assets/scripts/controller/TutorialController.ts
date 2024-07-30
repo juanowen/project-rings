@@ -21,7 +21,7 @@ export class TutorialController implements IController<TutorialView> {
         this._fieldModel = fieldModel;
     }
 
-    public handle(view?: TutorialView): void {
+    public handle(view?: TutorialView, forceMode: boolean = false): void {
         const tutorialView = view ?? this._getTutorialView();
 
         if (tutorialView) {
@@ -32,7 +32,12 @@ export class TutorialController implements IController<TutorialView> {
                 const ringView = ringModel.view as RingView;
             
                 tutorialView.target = ringView.node;
-                tutorialView.setSlippingMode();
+
+                if (forceMode) {
+                    tutorialView.playTutorial();
+                } else {
+                    tutorialView.setSlippingMode();
+                }
             } else {
                 tutorialView.target = null;
             }

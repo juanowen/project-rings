@@ -18,6 +18,12 @@ export class GameManager extends cc.Component {
         visible: true,
     })
     protected _fieldHolder: cc.Node = null;
+    
+    @property({
+        type: TutorialView,
+        visible: true,
+    })
+    protected _tutorialView: TutorialView = null;
 
     @Injector('PieceFactory')
     protected _pieceFactory: PieceFactory;
@@ -48,7 +54,9 @@ export class GameManager extends cc.Component {
                 this._fieldHolder.addChild(piece);
             });
 
-            this._tutorialController?.handle();
+            if (this._tutorialView) {
+                this._tutorialView.tutorialController = this._tutorialController;
+            }
         }
     }
 }

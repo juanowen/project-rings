@@ -1,3 +1,5 @@
+import { IController } from "../interface/IController";
+
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -27,7 +29,15 @@ export class TutorialView extends cc.Component {
     protected _tutorialTimeout: number = 3;
 
     protected _sleepTimer: number = 0;
+    
+    protected _tutorialController: IController<TutorialView> = null;
     protected _target: cc.Node = null;
+
+    public set tutorialController(value: IController<TutorialView>) {
+        this._tutorialController = value;
+
+        this._tutorialController.handle(this);
+    }
 
     public set target(value: cc.Node) {
         this._target = value;
@@ -38,13 +48,17 @@ export class TutorialView extends cc.Component {
             this._sleepTimer < this._tutorialTimeout &&
             this._sleepTimer + dt >= this._tutorialTimeout
         ) {
-            this._playTutorial();
+            this.playTutorial();
         }
 
         this._sleepTimer += dt;
     }
 
-    protected _playTutorial() {
+    public playTutorial() {
+        if (this._target?.isValid === false) {
+            this._tutorialController?.handle(this, true);
+        }
+
         if (this._target) {
             const ringWorldPos = this._target.convertToWorldSpaceAR(cc.Vec2.ZERO);
             const ringLocalPos = this.node.parent.convertToNodeSpaceAR(ringWorldPos);
