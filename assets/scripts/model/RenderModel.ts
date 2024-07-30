@@ -50,4 +50,13 @@ export class RenderModel extends BaseModel<RenderModel.Data> {
     protected _renderView(): void {
         this.view?.render(this.getData());
     }
+
+    public serialize(): RenderModel.Data {
+        return {
+            type: this._type,
+            x: this._x,
+            y: this._y,
+            angle: this._angle,
+        };
+    }
 }

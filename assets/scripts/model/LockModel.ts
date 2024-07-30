@@ -9,6 +9,11 @@ export namespace LockModel {
         radius: number,
         isLocked: boolean,
     }
+
+    export type SerializedData = {
+        radius: number,
+        angle: number,
+    }
 }
 
 export class LockModel extends RenderModel {
@@ -35,5 +40,12 @@ export class LockModel extends RenderModel {
 
     public setOwnerModel(ownerModel: LockablePieceModel): void {
         this._ownerModel = ownerModel;
+    }
+
+    public override serialize(): LockModel.SerializedData {
+        return {
+            radius: this._radius,
+            angle: this._angle,
+        };
     }
 }
