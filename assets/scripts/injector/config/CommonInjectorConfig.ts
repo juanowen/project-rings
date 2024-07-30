@@ -5,12 +5,23 @@ import { RingController } from "../../controller/RingController";
 import { TutorialController } from "../../controller/TutorialController";
 import { BundlePrefabGetter } from "../../getter/BundlePrefabGetter";
 import { ColorSpriteFrameGetter } from "../../getter/ColorSpriteFrameGetter";
+import { CacheManager } from "../../managers/CacheManager";
 import ModelInjectorConfig from "./ModelInjectorConfig";
+
+export const CacheResolver = new CacheManager();
 
 export default {
     'BlockerPieceBuilder': new BlockerPieceBuilder({
-        prefabGetter: new BundlePrefabGetter('prefabs', 'LockView'),
-        spriteFrameGetter: new ColorSpriteFrameGetter('images', 'single_blocker_'),
+        prefabGetter: new BundlePrefabGetter({
+            bundleName: 'prefabs', 
+            prefabName: 'LockView',
+            cacheManager: CacheResolver
+        }),
+        spriteFrameGetter: new ColorSpriteFrameGetter({
+            bundleName: 'images', 
+            spriteNamePrefix: 'single_blocker_',
+            cacheManager: CacheResolver
+        }),
         fieldModel: ModelInjectorConfig.FieldModel,
         handlers: {
             'collisionHandler': new LockController({
@@ -31,5 +42,7 @@ export default {
 
     'LockablePieceController': new LockablePieceController({
         fieldModel: ModelInjectorConfig.FieldModel,
-    })
+    }),
+
+    'CacheManager': CacheResolver
 }

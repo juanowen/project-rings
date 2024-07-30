@@ -10,30 +10,47 @@ import ModelInjectorConfig from "./ModelInjectorConfig";
 
 export default {
     'BundleLoader': new BundleLoader({
-        'images': [
-            'ring_blue',
-            'ring_green',
-            'ring_pink',
-            'ring_red',
-            'ring_yellow',
-            'single_blocker_blue',
-            'single_blocker_green',
-            'single_blocker_pink',
-            'single_blocker_red',
-            'single_blocker_yellow',
-        ],
-        'prefabs': [
-            'Lock',
-            'LockView',
-            'Ring'
-        ]
+        cacheManager: CommonInjectorConfig.CacheManager,
+        bundleConfig: {
+            'images': {
+                type: cc.SpriteFrame,
+                files: [
+                    'ring_blue',
+                    'ring_green',
+                    'ring_pink',
+                    'ring_red',
+                    'ring_yellow',
+                    'single_blocker_blue',
+                    'single_blocker_green',
+                    'single_blocker_pink',
+                    'single_blocker_red',
+                    'single_blocker_yellow',
+                ],
+            },
+            'prefabs': {
+                type: cc.Prefab,
+                files: [
+                    'Lock',
+                    'LockView',
+                    'Ring'
+                ]
+            }
+        }
     }),
 
     'PieceFactory': new PieceFactory({
         builderMap: {
             [PieceType.Ring]: new RingPieceBuilder({
-                prefabGetter: new BundlePrefabGetter('prefabs', 'Ring'),
-                spriteFrameGetter: new ColorSpriteFrameGetter('images', 'ring_'),
+                prefabGetter: new BundlePrefabGetter({
+                    bundleName: 'prefabs', 
+                    prefabName: 'Ring',
+                    cacheManager: CommonInjectorConfig.CacheManager
+                }),
+                spriteFrameGetter: new ColorSpriteFrameGetter({
+                    bundleName: 'images', 
+                    spriteNamePrefix: 'ring_',
+                    cacheManager: CommonInjectorConfig.CacheManager
+                }),
                 fieldModel: ModelInjectorConfig.FieldModel,
                 blockerBuilder: CommonInjectorConfig.BlockerPieceBuilder,
                 handlers: {
@@ -43,7 +60,11 @@ export default {
             }),
             
             [PieceType.LockablePiece]: new LockablePieceBuilder({
-                prefabGetter: new BundlePrefabGetter('prefabs', 'Lock'),
+                prefabGetter: new BundlePrefabGetter({
+                    bundleName: 'prefabs', 
+                    prefabName: 'Lock',
+                    cacheManager: CommonInjectorConfig.CacheManager
+                }),
                 fieldModel: ModelInjectorConfig.FieldModel,
                 blockerBuilder: CommonInjectorConfig.BlockerPieceBuilder,
                 handlers: {
