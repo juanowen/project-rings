@@ -1,10 +1,13 @@
-import { ColorType } from "../scripts/enum/ColorType";
 import { PieceType } from "../scripts/enum/PieceType";
 import { LockablePieceModel } from "../scripts/model/LockablePieceModel";
 import { FieldPiece } from "./FieldPiece";
-import { PiecePrefabMap } from "./PiecePrefabMap";
-import { PieceColorMap } from "./PieceColorMap";
-import { EnumUtil } from "./EnumUtil";
+import { PieceFactory } from "../scripts/factory/PieceFactory";
+import { FieldModel } from "../scripts/model/FieldModel";
+import { RingPieceBuilder } from "../scripts/builder/RingPieceBuilder";
+import { LockablePieceBuilder } from "../scripts/builder/LockablePieceBuilder";
+import { BlockerPieceBuilder } from "../scripts/builder/BlockerPieceBuilder";
+import { SpriteFrameGetterComponent } from "./SpriteFrameGetterComponent";
+import { PrefabGetterComponent } from "./PrefabGetterComponent";
 
 import { saveExportJson } from './DataExporter';
 
@@ -14,34 +17,30 @@ const { ccclass, property } = cc._decorator;
 export class FieldBuilderComponent extends cc.Component {
     @property
     protected _pieces: FieldPiece[] = [];
-    protected _exportField: boolean = false;
-
     @property
-    public editConfigs: boolean = false;
+    protected _fieldData: Array<LockablePieceModel.SerializedData> = [];
+
+    protected _model: FieldModel = null;
+    protected _exportField: boolean = false;
+    protected _pieceFactory: PieceFactory = null;
 
     @property({
-        type: [PiecePrefabMap],
-        visible() { return this.editConfigs },
+        type: PrefabGetterComponent,
+        visible: true,
     })
-    protected _prefabConfig: PiecePrefabMap[] = [];
+    protected _prefabGetter: PrefabGetterComponent = null;
 
     @property({
-        type: [PieceColorMap],
-        visible() { return this.editConfigs },
+        type: SpriteFrameGetterComponent,
+        visible: true,
     })
-    protected _ringSpriteConfig: PieceColorMap[] = [];
+    protected _ringSpriteFrameGetter: SpriteFrameGetterComponent = null;
 
     @property({
-        type: [PieceColorMap],
-        visible() { return this.editConfigs },
+        type: SpriteFrameGetterComponent,
+        visible: true,
     })
-    protected _lockSpriteConfig: PieceColorMap[] = [];
-
-    @property({
-        type: cc.Prefab,
-        visible() { return this.editConfigs },
-    })
-    protected _lockPrefab: cc.Prefab = null;
+    protected _lockSpriteFrameGetter: SpriteFrameGetterComponent = null;
 
     @property({
         type: [FieldPiece],
@@ -53,17 +52,7 @@ export class FieldBuilderComponent extends cc.Component {
     public set pieces(value: FieldPiece[]) {
         this._pieces = value;
 
-        this.node.children.forEach(child => child.destroy());
-
-        if (Array.isArray(this._pieces)) {
-            this._pieces.forEach(piece => {
-                const node = new cc.PrivateNode('Piece');
-                this.node.addChild(node);
-
-                piece.node = node;
-                piece.redraw(this._lockPrefab, this._prefabConfig, this._ringSpriteConfig, this._lockSpriteConfig);
-            });
-        }
+        this._buildField();
     }
 
     @property
@@ -76,22 +65,57 @@ export class FieldBuilderComponent extends cc.Component {
         return false;
     }
     public set exportField(value: boolean) {
-        if (Array.isArray(this._pieces)) {
-            const exportData = this._pieces.map(piece => {
-                piece.redraw(this._lockPrefab, this._prefabConfig, this._ringSpriteConfig, this._lockSpriteConfig);
+        saveExportJson(this._fieldData, this.exportName, 'assets/fieldBuilder/configs');
+    }
 
-                const data = piece.model.serialize() as LockablePieceModel.SerializedData;
+    protected _configureBuilder(): void {
+        this._fieldData = [];
+        this._model = new FieldModel();
 
-                data['type'] = EnumUtil.getCCEnumElement(PieceType, piece.type);
-                data['color'] = EnumUtil.getCCEnumElement(ColorType, piece.color);
-                data.locks.forEach(lock => {
-                    lock['color'] = data['color'];
-                });
-
-                return data;
+        if (!this._pieceFactory) {
+            const blockerPieceBuilder = new BlockerPieceBuilder({
+                prefabGetter: this._prefabGetter,
+                spriteFrameGetter: this._lockSpriteFrameGetter,
+                fieldModel: this._model,
+                prefabName: 'LockView',
             });
 
-            saveExportJson(exportData, this.exportName, 'assets/fieldBuilder/configs');
+            this._pieceFactory = new PieceFactory({
+                builderMap: {
+                    [PieceType.Ring]: new RingPieceBuilder({
+                        prefabGetter: this._prefabGetter,
+                        spriteFrameGetter: this._ringSpriteFrameGetter,
+                        fieldModel: this._model,
+                        blockerBuilder: blockerPieceBuilder,
+                        prefabName: 'Ring',
+                    }),
+                    
+                    [PieceType.LockablePiece]: new LockablePieceBuilder({
+                        prefabGetter: this._prefabGetter,
+                        fieldModel: this._model,
+                        blockerBuilder: blockerPieceBuilder,
+                        prefabName: 'Lock',
+                    }),
+                }
+            });
+        }
+    }
+
+    protected async _buildField() {
+        this._configureBuilder();
+        this.node.children.forEach(child => child.destroy());
+        
+        const field = new cc.PrivateNode('Field');
+        this.node.addChild(field);
+
+        if (Array.isArray(this._pieces)) {
+            for (const piece of this._pieces) {
+                const pieceData = piece.getData();
+                const {node} = await this._pieceFactory.createPiece(pieceData.type, {configEntry: pieceData});
+
+                this._fieldData.push(pieceData);
+                field.addChild(node);
+            }
         }
     }
 }

@@ -9,7 +9,11 @@ export class EnumUtil {
         }, {}));
     }
 
-    public static getCCEnumElement = (registry: unknown, el: string | number) => {
+    public static getCCEnumElement(registry: unknown, el: string | number) {
         return Object.values(registry)[el];
+    }
+
+    public static getCCEnumIndex(registry: unknown, el: string): number {
+        return Object.values(registry).indexOf(el);
     }
 }

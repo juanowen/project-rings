@@ -8,6 +8,7 @@ export namespace RenderModel {
         x?: number,
         y?: number,
         angle?: number,
+        color?: string,
     }
 }
 
@@ -17,6 +18,7 @@ export class RenderModel extends BaseModel<RenderModel.Data> {
     protected _y: number;
     protected _angle: number;
     protected _view: IView;
+    protected _color: string;
 
     public get view(): IView {
         return this._view;
@@ -30,6 +32,7 @@ export class RenderModel extends BaseModel<RenderModel.Data> {
         this._x = data.x ?? 0;
         this._y = data.y ?? 0;
         this._angle = data.angle ?? 0;
+        this._color = data.color;
     }
 
     public updateData(data: Record<string, unknown>): void {
@@ -57,6 +60,7 @@ export class RenderModel extends BaseModel<RenderModel.Data> {
             x: this._x,
             y: this._y,
             angle: this._angle,
+            color: this._color,
         };
     }
 }

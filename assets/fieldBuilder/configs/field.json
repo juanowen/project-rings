@@ -1,0 +1,102 @@
+[
+  {
+    "type": "ring",
+    "x": 0,
+    "y": 0,
+    "angle": 0,
+    "locks": [
+      {
+        "radius": 231,
+        "angle": 300,
+        "color": "yellow"
+      },
+      {
+        "radius": 231,
+        "angle": 240,
+        "color": "yellow"
+      }
+    ],
+    "color": "yellow"
+  },
+  {
+    "type": "ring",
+    "x": 462,
+    "y": 0,
+    "angle": 0,
+    "locks": [
+      {
+        "radius": 231,
+        "angle": 240,
+        "color": "pink"
+      },
+      {
+        "radius": 231,
+        "angle": 300,
+        "color": "pink"
+      }
+    ],
+    "color": "pink"
+  },
+  {
+    "type": "ring",
+    "x": -231,
+    "y": -400,
+    "angle": 100,
+    "locks": [],
+    "color": "green"
+  },
+  {
+    "type": "ring",
+    "x": 231,
+    "y": -400,
+    "angle": 190,
+    "locks": [],
+    "color": "red"
+  },
+  {
+    "type": "ring",
+    "x": 693,
+    "y": -400,
+    "angle": 280,
+    "locks": [],
+    "color": "blue"
+  },
+  {
+    "type": "lockablePiece",
+    "x": 0,
+    "y": -400,
+    "angle": 0,
+    "locks": [
+      {
+        "radius": 0,
+        "angle": 0,
+        "color": "pink"
+      },
+      {
+        "radius": 0,
+        "angle": 180,
+        "color": "pink"
+      }
+    ],
+    "color": "pink"
+  },
+  {
+    "type": "lockablePiece",
+    "x": 462,
+    "y": -400,
+    "angle": 0,
+    "locks": [
+      {
+        "radius": 0,
+        "angle": 0,
+        "color": "yellow"
+      },
+      {
+        "radius": 0,
+        "angle": 180,
+        "color": "yellow"
+      }
+    ],
+    "color": "yellow"
+  }
+]

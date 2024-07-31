@@ -6,7 +6,7 @@ const { ccclass, property } = cc._decorator;
 @ccclass('PiecePrefabMap')
 export class PiecePrefabMap {
     @property({
-        type: EnumUtil.getCCEnum(PieceType, [PieceType.Lock])
+        type: EnumUtil.getCCEnum(PieceType)
     })
     public pieceType: number = 0;
 

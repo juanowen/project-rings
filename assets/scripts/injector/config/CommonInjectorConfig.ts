@@ -14,7 +14,6 @@ export default {
     'BlockerPieceBuilder': new BlockerPieceBuilder({
         prefabGetter: new BundlePrefabGetter({
             bundleName: 'prefabs', 
-            prefabName: 'LockView',
             cacheManager: CacheResolver
         }),
         spriteFrameGetter: new ColorSpriteFrameGetter({
@@ -23,6 +22,7 @@ export default {
             cacheManager: CacheResolver
         }),
         fieldModel: ModelInjectorConfig.FieldModel,
+        prefabName: 'LockView',
         handlers: {
             'collisionHandler': new LockController({
                 fieldModel: ModelInjectorConfig.FieldModel,

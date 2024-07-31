@@ -11,10 +11,12 @@ export namespace PieceBuilder {
         prefabGetter: IGetter<cc.Prefab>,
         spriteFrameGetter?: IGetter<cc.SpriteFrame>,
         fieldModel: FieldModel,
+        prefabName: string,
         handlers?: Record<string, IController<unknown>>,
     }
 
     export type Payload = {
+        prefab: string,
         configEntry: ConfigEntry,
     }
 }
@@ -23,17 +25,19 @@ export abstract class PieceBuilder<Payload> implements PieceFactory.IPieceBuilde
     protected _prefabGetter: IGetter<cc.Prefab>;
     protected _spriteFrameGetter: IGetter<cc.SpriteFrame>;
     protected _fieldModel: FieldModel;
+    protected _prefabName: string;
     protected _handlers: Record<string, IController<unknown>>;
 
-    constructor({prefabGetter, spriteFrameGetter, fieldModel, handlers}: PieceBuilder.Options) {
+    constructor({prefabGetter, spriteFrameGetter, fieldModel, prefabName, handlers}: PieceBuilder.Options) {
         this._prefabGetter = prefabGetter;
         this._spriteFrameGetter = spriteFrameGetter;
         this._fieldModel = fieldModel;
+        this._prefabName = prefabName;
         this._handlers = handlers ?? {};
     }
 
     public async build(payload?: Payload): Promise<PieceFactory.PieceData> {
-        const prefab = await this._prefabGetter.get();
+        const prefab = await this._prefabGetter.get(this._prefabName);
 
         if (prefab) {
             const node = cc.instantiate(prefab);

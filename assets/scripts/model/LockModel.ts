@@ -13,6 +13,7 @@ export namespace LockModel {
     export type SerializedData = {
         radius: number,
         angle: number,
+        color: string,
     }
 }
 
@@ -46,6 +47,7 @@ export class LockModel extends RenderModel {
         return {
             radius: this._radius,
             angle: this._angle,
+            color: this._color,
         };
     }
 }

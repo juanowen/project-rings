@@ -4,25 +4,22 @@ import { CacheManager } from "../managers/CacheManager";
 export namespace BundlePrefabGetter {
     export type Options = {
         bundleName: string,
-        prefabName: string,
         cacheManager?: CacheManager,
     }
 }
 
-export class BundlePrefabGetter implements IGetter<cc.Prefab> {
+export class BundlePrefabGetter implements IGetter<cc.Prefab, string> {
     private _bundleName: string;
-    private _prefabName: string;
     private _cacheManager: CacheManager;
 
-    constructor({bundleName, prefabName, cacheManager}: BundlePrefabGetter.Options) {
+    constructor({bundleName, cacheManager}: BundlePrefabGetter.Options) {
         this._bundleName = bundleName;
-        this._prefabName = prefabName;
         this._cacheManager = cacheManager;
     }
 
-    public async get(): Promise<cc.Prefab> {
+    public async get(prefabName: string): Promise<cc.Prefab> {
         return new Promise((resolve, reject) => {
-            const cachedValue = this._cacheManager?.get(`${this._bundleName}/${this._prefabName}`);
+            const cachedValue = this._cacheManager?.get(`${this._bundleName}/${prefabName}`);
 
             if (cachedValue) {
                 resolve(cachedValue as cc.Prefab);
@@ -30,7 +27,7 @@ export class BundlePrefabGetter implements IGetter<cc.Prefab> {
 
             const bundle = cc.assetManager.getBundle(this._bundleName);
 
-            bundle.load(this._prefabName, cc.Prefab, null, (error, asset) => {
+            bundle.load(prefabName, cc.Prefab, null, (error, asset) => {
                 if (error) {
                     reject(error);
                 }

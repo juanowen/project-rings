@@ -43,7 +43,6 @@ export default {
             [PieceType.Ring]: new RingPieceBuilder({
                 prefabGetter: new BundlePrefabGetter({
                     bundleName: 'prefabs', 
-                    prefabName: 'Ring',
                     cacheManager: CommonInjectorConfig.CacheManager
                 }),
                 spriteFrameGetter: new ColorSpriteFrameGetter({
@@ -53,6 +52,7 @@ export default {
                 }),
                 fieldModel: ModelInjectorConfig.FieldModel,
                 blockerBuilder: CommonInjectorConfig.BlockerPieceBuilder,
+                prefabName: 'Ring',
                 handlers: {
                     'touchHandler': CommonInjectorConfig.RingController,
                     'releaseHandler': CommonInjectorConfig.LockablePieceController
@@ -62,11 +62,11 @@ export default {
             [PieceType.LockablePiece]: new LockablePieceBuilder({
                 prefabGetter: new BundlePrefabGetter({
                     bundleName: 'prefabs', 
-                    prefabName: 'Lock',
                     cacheManager: CommonInjectorConfig.CacheManager
                 }),
                 fieldModel: ModelInjectorConfig.FieldModel,
                 blockerBuilder: CommonInjectorConfig.BlockerPieceBuilder,
+                prefabName: 'Lock',
                 handlers: {
                     'releaseHandler': CommonInjectorConfig.LockablePieceController
                 }
