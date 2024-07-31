@@ -93,6 +93,7 @@ export default class PhysicsManager extends cc.Component {
             
             if (this._collisionManager) {
                 this._collisionManager.enabled = true;
+                this._collisionManager.enabledDrawBoundingBox = this._debugCollision;
                 this._collisionManager.enabledDebugDraw = this._debugCollision;
             }
         }

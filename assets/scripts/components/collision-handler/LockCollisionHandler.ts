@@ -1,3 +1,4 @@
+import { AngleUtil } from "../../utils/AngleUtil";
 import { LockablePieceView } from "../../view/LockablePieceView";
 import { LockView } from "../../view/LockView";
 import { BaseCollisionHandler } from "./BaseCollisionHandler";
@@ -10,7 +11,7 @@ const enum ColliderType {
 }
 
 @ccclass
-export class LockablePieceCollisionHandler extends BaseCollisionHandler {
+export class LockCollisionHandler extends BaseCollisionHandler {
     @property({
         type: LockView,
         visible: true,
@@ -20,8 +21,26 @@ export class LockablePieceCollisionHandler extends BaseCollisionHandler {
     protected _collisions: Set<cc.Collider> = new Set();
 
     protected _addCollision(other: cc.Collider, self: cc.Collider): void {
-        this._collisions.add(other);
-        this._processCollisions();
+        if (other.tag !== ColliderType.Hole) {
+            this._collisions.add(other);
+            this._processCollisions();
+        }
+    }
+
+    protected _stayCollision(other: cc.Collider, self: cc.Collider): void {
+        if (other.tag === ColliderType.Hole) {
+            const entering = this._checkEntering(other, self);
+
+            if (entering && !this._collisions.has(other)) {
+                this._collisions.add(other);
+                this._processCollisions();
+            } 
+            
+            if (!entering && this._collisions.has(other)) {
+                this._collisions.delete(other);
+                this._processCollisions();
+            }
+        }
     }
 
     protected _removeCollision(other: cc.Collider, self: cc.Collider): void {
@@ -33,7 +52,7 @@ export class LockablePieceCollisionHandler extends BaseCollisionHandler {
         if (this._lockView) {
             const collisions = Array.from(this._collisions);
 
-            if (!collisions.some(({tag}) => tag === ColliderType.Hole)) {
+            if (!(collisions.some(({tag}) => tag === ColliderType.Hole))) {
                 if (collisions.length) {
                     const collider = collisions[0];
                     const lockablePieceView = collider.getComponent(LockablePieceView) || collider.node.parent.getComponent(LockablePieceView);
@@ -45,8 +64,22 @@ export class LockablePieceCollisionHandler extends BaseCollisionHandler {
                     }
                 }
             }
-            
+
             this._lockView.deleteLockedView();
         }
+    }
+
+    protected _checkEntering(other: cc.Collider, self: cc.Collider): boolean {
+        if (self instanceof cc.CircleCollider && other instanceof cc.CircleCollider) {
+            const selfRect = self.world.aabb;
+            const otherRect = other.world.aabb;
+
+            return selfRect.x >= otherRect.x &&
+                selfRect.x + selfRect.width <= otherRect.x + otherRect.width &&
+                selfRect.y >= otherRect.y &&
+                selfRect.y + selfRect.height <= otherRect.y + otherRect.height;
+        }
+
+        return false;
     }
 }

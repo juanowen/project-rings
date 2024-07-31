@@ -26,7 +26,7 @@ export class BaseView extends cc.Component implements IView<RenderModel.Data> {
     }
 
     public changeSpriteFrame(spriteFrame: cc.SpriteFrame): void {
-        if (this,this._renderSprite) {
+        if (this._renderSprite) {
             this._renderSprite.spriteFrame = spriteFrame;
         }
     }

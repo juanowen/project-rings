@@ -39,10 +39,14 @@ export class RingController implements IController<RingView, cc.Event.EventTouch
         const ringModelData = ringModel.getData();
 
         if (ringModelData.isRotatable) {
-            const ringWorldPos = data.currentTarget.convertToWorldSpaceAR(cc.Vec2.ZERO);
-            const ringPos = cc.v2(cc.Camera.findCamera(view.node).getWorldToScreenPoint(ringWorldPos));
+            const camera = cc.Camera.findCamera(view.node);
+
+            const ringWorldPos = view.node.convertToWorldSpaceAR(cc.Vec2.ZERO);
+            const ringPos = cc.v2(camera.getWorldToScreenPoint(ringWorldPos));
+
             const prevTouchPos = data.touch.getPreviousLocation();
             const currentTouchPos = data.touch.getLocation();
+
             const lastAngle = ringModelData.angle;
             const deltaAngle = AngleUtil.getDeltaAngle(ringPos, prevTouchPos, currentTouchPos);
 

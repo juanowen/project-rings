@@ -13,6 +13,12 @@ export abstract class BaseCollisionHandler extends cc.Component {
             this._addCollision(other, self);
         }
     }
+    
+    public onCollisionStay(other: cc.Collider, self: cc.Collider): void {
+        if (this._lockGroups.includes(other.node.group)) {
+            this._stayCollision(other, self);
+        }
+    }
 
     public onCollisionExit(other: cc.Collider, self: cc.Collider): void {
         if (this._lockGroups.includes(other.node.group)) {
@@ -21,5 +27,6 @@ export abstract class BaseCollisionHandler extends cc.Component {
     }
 
     protected abstract _addCollision(other: cc.Collider, self: cc.Collider): void;
+    protected abstract _stayCollision(other: cc.Collider, self: cc.Collider): void;
     protected abstract _removeCollision(other: cc.Collider, self: cc.Collider): void;
 }

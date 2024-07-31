@@ -4,6 +4,8 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export class BlockAnimator extends BaseAnimator {
+    protected _lastAngle: number = 0;
+
     @property({
         visible: true,
     })
@@ -15,8 +17,12 @@ export class BlockAnimator extends BaseAnimator {
     protected _amplitude: number = 3;
 
     public animate(): void {
-        this._tween?.stop();
+        if (this._tween) {
+            this._tween.stop();
+            this.node.angle = this._lastAngle;
+        }
 
+        this._lastAngle = this.node.angle;
         this._tween = cc.tween(this.node)
             .delay(this._delay);
 

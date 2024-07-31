@@ -24,20 +24,6 @@ export class RingView extends LockablePieceView {
         this._touchHandler = value;
     }
 
-    protected onEnable(): void {
-        this._listenEvents(true);
-    }
-
-    protected onDisable(): void {
-        this._listenEvents(false);
-    }
-
-    protected _listenEvents(isListening: boolean): void {
-        const func = isListening ? 'on' : 'off';
-
-        this.node[func](cc.Node.EventType.TOUCH_MOVE, this._onTouchMove, this);
-    }
-
     protected _onTouchMove(event: cc.Event.EventTouch): void {
         this._touchHandler?.handle(this, event);
     }
@@ -50,5 +36,21 @@ export class RingView extends LockablePieceView {
         this._collider.enabled = false;
 
         super.destroyView();
+    }
+
+    public handleTouchMove(event: cc.Event.EventTouch): RingView {
+        const camera = cc.Camera.findCamera(this.node);
+        
+        const worldPos = this.node.convertToWorldSpaceAR(cc.Vec2.ZERO);
+        const touchPos = event.touch.getLocation();
+        const touchWorldPos = cc.v2(camera.getScreenToWorldPoint(touchPos));
+
+        if (Math.hypot(worldPos.x - touchWorldPos.x, worldPos.y - touchWorldPos.y) < this.node.width / 2) {
+            this._onTouchMove(event);
+
+            return this;
+        }
+
+        return null;
     }
 }
